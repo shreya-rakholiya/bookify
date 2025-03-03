@@ -1,0 +1,61 @@
+import { FilterQuery, Types } from "mongoose";
+import { Ibook } from "../types/model.types";
+import { bookModel } from "../models/book";
+
+export const createBook = async (input: FilterQuery<Ibook>) => {
+  const book = await new bookModel(input).save();
+  return book;
+};
+
+export const findBook = async (bookId: any) => {
+  const book = await bookModel.findOne(bookId)
+  .populate('image')
+  // .populate('author')
+  // .populate('category')
+  // .populate('reviews')
+  .lean();
+  // console.log(book,"bookkkkk");
+  
+  return book;
+};
+
+export const findAllBook = async () => {
+  const books = await bookModel.find()
+  .populate('image')
+  // .populate('author')
+  // .populate('category')
+  // .populate('reviews')
+  .lean();
+  // console.log(books,"allll boookkkksss");
+  
+  return books;
+};
+
+export const updateBook = async (
+  query: FilterQuery<Ibook>,
+  update: Partial<Ibook>
+) => {
+  const book = await bookModel.updateOne(query, update, { new: true });
+  return book;
+};
+
+export const deleteBook = async (bookId: any) => {
+  console.log(bookId,"shfuidhgio");
+  
+  const book = await bookModel.findByIdAndDelete({ _id: bookId });
+  return book;
+};
+
+export const updateBookAvailibility = async (
+  bookId: Types.ObjectId,
+  quantity: number
+) => {
+  const book = await bookModel.findByIdAndUpdate(
+    bookId,
+    { $inc: { copiesAvailable: quantity } },
+    { new: true }
+  );
+  console.log(book,"updated boookkk quantittyyyyy");
+  
+  return book;
+};
