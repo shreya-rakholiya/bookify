@@ -5,10 +5,10 @@ import { validateAuthIdToken } from "../../middleware/auth";
 const book=express.Router();
 
 // @ts-ignore
-book.get('/getAll',validateAuthIdToken,getAllBookController)
+book.get('/getAll',getAllBookController)
 // @ts-ignore
-book.get('/get',validateAuthIdToken,getBookController)
+book.get('/get/:bId',getBookController)
 // @ts-ignore
-book.get('/available',validateAuthIdToken,getAvailableBooks)
+book.get('/available',getAvailableBooks)
 
 export {book}

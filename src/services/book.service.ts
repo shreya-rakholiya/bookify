@@ -8,7 +8,7 @@ export const createBook = async (input: FilterQuery<Ibook>) => {
 };
 
 export const findBook = async (bookId: any) => {
-  const book = await bookModel.findOne(bookId)
+  const book = await bookModel.findOne({_id:bookId})
   .populate('image')
   // .populate('author')
   // .populate('category')

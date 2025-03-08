@@ -32,7 +32,7 @@ const upload = multer({ storage });
 export const fileUpload = (req: Request, res: Response, next: NextFunction) => {
   console.log("----------fileupload start-----------");
   
-  upload.array("image", 20)(req, res, async (err) => {
+  upload.array("file", 20)(req, res, async (err) => {
     if (err) {
       return res
         .status(400)

@@ -21,7 +21,7 @@ export const getAllBookController=async(req:Request,res:Response)=>{
 
 export const getBookController=async(req:Request, res:Response)=>{
     try{
-        const bId=req.query.bId;
+        const {bId}=req.params;
         if(!bId){
             return res.status(400).json({success: false,message: "Please provide book id"})
         }

@@ -7,6 +7,6 @@ const faq=express.Router()
 faq.use(express.json())
 
 // @ts-ignore
-faq.get("/get-all",validateAuthIdToken,getFaqController);
+faq.get("/getAll",validateAuthIdToken,getFaqController);
 
 export {faq}

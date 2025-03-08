@@ -9,8 +9,9 @@ const bookSchema = new Schema<Ibook>({
     required: true,
   },
   image:{
-    type:Types.ObjectId,
-    ref:"Media"
+    // type:Types.ObjectId,
+    // ref:"Media"
+    type:String
   },
   author: {
     type: String,

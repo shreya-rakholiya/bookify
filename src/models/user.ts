@@ -27,7 +27,7 @@ const userSchema = new Schema<Iuser>(
       type: String,
       required: true,
       default: "user",
-      enum: ["admin", "librarian", "user"],
+      enum: ["admin", "author", "user"],
     },
     gender: {
       type: String,

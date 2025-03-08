@@ -7,7 +7,7 @@ export const createBlog = async (input:FilterQuery<Iblog>) => {
   return savedBlog;
 };
 export const findAllBlog=async()=>{
-  const blogs=await blogModel.find();
+  const blogs=await blogModel.find().lean();
   return blogs;
 }
 export const findBlog = async (id:any) => {
