@@ -30,7 +30,7 @@ export const updateUserProfileController=async(req:Request,res:Response)=>{
     try{
             const authUSer=req.authUser;
             const payload=req.body;
-            const role='admin';
+            const role='user';
             const updatedUser=await updateProfile(authUSer._id,role,{...payload});
             if(!updatedUser){
                 return res.status(404).json({
