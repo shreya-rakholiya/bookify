@@ -39,3 +39,10 @@ export const updateProfile=async(id:string,role:string,update:Partial<Iuser>)=>{
     return admin;
 }
 
+export const findBorrowedBookOfUser=async(userId:string)=>{
+    const borrowedBooks=await userModel.findById(userId)
+    .select('borrowedBooks')
+    .populate('borrowedBooks')
+    .lean()
+    return borrowedBooks;
+}

@@ -48,3 +48,14 @@ export const updateAdminProfileController = async (req:Request, res:Response) =>
         })
     }
 }
+
+export const getBorrowedBookController=async(req:Request,res:Response)=>{
+    try{
+        
+    }catch(err){
+        return res.status(500).json({
+            success: false,
+            message:err.message
+        })
+    }
+}

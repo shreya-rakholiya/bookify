@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserProfileController, updateUserProfileController } from '../../controllers/user/profile.controller';
+import { getBorrowedBooksController, getUserProfileController, updateUserProfileController } from '../../controllers/user/profile.controller';
 import { validateAuthIdToken } from '../../middleware/auth';
 const profileRoute=express.Router();
 
@@ -7,5 +7,7 @@ const profileRoute=express.Router();
 profileRoute.get('/get',validateAuthIdToken,getUserProfileController)
 // @ts-ignore
 profileRoute.patch('/update',validateAuthIdToken,updateUserProfileController)
+// @ts-ignore
+profileRoute.get('/borrow',validateAuthIdToken,getBorrowedBooksController)
 
 export {profileRoute}

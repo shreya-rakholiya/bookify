@@ -5,6 +5,7 @@ wishlist
 Backend->Password reset
 BACKEND->LOGOUT
 ADMIN BACKEND->AUTHOR AND CATEGORY in Book
+Frontend->Wishlist
 
 remaining..................................
 get token
@@ -14,21 +15,20 @@ Frontend->Fine
 Frontend->Refund
 Frontend->Author panel api
 Both->BlogDetail
-Frontend->Wishlist
 FRONTEND->Pasword reset
 FRONTEND->logout
 ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 BACKEND->Validator
-
-
+BACKEND->IMAGE update
+ADMIN FRONTEND->Height of sidebar
 
 
 HEMANSHI->RESETPASSWORD FORM
-HEMANSHI->Book ui 
+HEMANSHI->Book ui 	
  	->Blog deatil
 	->book category change
 	->PRofile in react
-->DASHBOARD RESPONSIVE
+->DASHBOARD RESPONSIVE	
 
 
 TRU->book ui change
