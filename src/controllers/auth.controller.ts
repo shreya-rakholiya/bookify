@@ -9,6 +9,7 @@ import { Request } from "../types/request";
 import { addMedia } from "../services/media.service";
 import { error, profile } from "console";
 import { userModel } from "../models/user";
+import randomstring from "randomstring"
 
 export const registerValidate = Joi.object({
   firstName: Joi.string().required(),
@@ -149,7 +150,7 @@ export const forgetPassword=async(req:Request,res:Response)=>{
         message:"User not found"
       })
     }
-    
+    const randomString=randomstring.generate()
   }catch(err){
     return res.status(500).json({
       success:false,
