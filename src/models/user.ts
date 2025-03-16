@@ -19,6 +19,10 @@ const userSchema = new Schema<Iuser>(
       required: true,
       unique: true,
     },
+    profile:{
+      type: Types.ObjectId,
+      ref: "Media"
+    },
     password: {
       type: String,
       required: true,

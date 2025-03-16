@@ -17,9 +17,6 @@ const passwordResetSchema=new Schema<IpasswordReset>({
         type:Date,
         default:Date.now
     },
-    expiresAt:{
-        type:Date
-    }
 })
 
 

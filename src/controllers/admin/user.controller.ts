@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
-import { findAllUser } from "../../services/register.service";
+import { findAllUser } from "../../services/user.service";
 
 export const getAlluserController = async (req: Request, res: Response) => {
   try {

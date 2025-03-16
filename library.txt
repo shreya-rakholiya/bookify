@@ -1,0 +1,21 @@
+done..................................
+login ->token
+profile
+wishlist
+
+
+remaining..................................
+get token
+Frontend->profile 
+Frontend->subscription
+Frontend->Fine
+Frontend->Refund
+Frontend->Author panel api
+Both->BlogDetail
+Frontend->Wishlist1
+Both->Pasword reset
+Both->logout
+
+MAil->Register mail message
+MAIL->Book Purchase
+MAIL->Book Borrow

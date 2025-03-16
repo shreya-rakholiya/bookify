@@ -48,12 +48,7 @@ const bookSchema = new Schema<Ibook>({
   copiesAvailable: {
     type: Number,
     default:0
-  },
-  reviews:{
-    type:mongoose.Types.ObjectId,
-    ref:"Review",
-    required:false
-  },
+  }
 
 },{timestamps:true});
 

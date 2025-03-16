@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { findUser } from "../services/register.service";
+import { findUser } from "../services/user.service";
 import Jwt from "jsonwebtoken"
 import { Request } from "../types/request";
 

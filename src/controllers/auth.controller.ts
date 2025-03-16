@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { createUser, findUser } from "../services/register.service";
+import { createUser, findUser } from "../services/user.service";
 import CryptoJS from "crypto-js"; 
 const { AES, enc } = CryptoJS; 
 import Jwt from "jsonwebtoken";
@@ -7,6 +7,8 @@ import {mailsender} from "../middleware/mailer";
 import { Response } from "express";
 import { Request } from "../types/request";
 import { addMedia } from "../services/media.service";
+import { error, profile } from "console";
+import { userModel } from "../models/user";
 
 export const registerValidate = Joi.object({
   firstName: Joi.string().required(),
@@ -29,6 +31,7 @@ export const registerValidate = Joi.object({
   gender:Joi.string(),
   phone: Joi.number(),
   address: Joi.string().optional(),
+  profile:Joi.string().optional()
 });
 
 const loginValidate = Joi.object({
@@ -136,4 +139,22 @@ export const loginController = async (req:Request, res:Response) => {
   }
 };
 
-
+export const forgetPassword=async(req:Request,res:Response)=>{
+  try{
+    const {email}= req.body;
+    const userData=await findUser({email});
+    if(!userData){
+      return res.status(400).json({
+        success:false,
+        message:"User not found"
+      })
+    }
+    
+  }catch(err){
+    return res.status(500).json({
+      success:false,
+      message:"Something happened wrong while forgatting password",
+      error:(err as Error).message
+    })
+  }
+}

@@ -6,6 +6,7 @@ export interface Iuser {
   lastName: string;
   email: string;
   password: string;
+  profile:ObjectId
   role: string;
   gender: string;
   phone: string;
@@ -52,7 +53,6 @@ export interface Ibook {
   description: string;
   totalCopies: number;
   copiesAvailable: number;
-  reviews: ObjectId;
 }
 
 export interface Iborrow {
@@ -156,6 +156,7 @@ export interface Ipurchase {
 export interface Ireview {
   _id: string;
   user: ObjectId;
+  bookId:ObjectId
   description: string;
 }
 

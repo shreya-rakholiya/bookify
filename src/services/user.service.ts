@@ -27,3 +27,14 @@ export const deleteUser=async(query:FilterQuery<Iuser>)=>{
     const user=await userModel.deleteMany(query);
     return user;
 }
+
+export const getProfile=async(id:string,role:string)=>{
+    const admin=await userModel.find({_id:id,role})
+    return admin;
+}
+
+export const updateProfile=async(id:string,role:string,update:Partial<Iuser>)=>{
+    const admin=await userModel.updateOne({_id:id,role},update)
+    return admin;
+}
+
