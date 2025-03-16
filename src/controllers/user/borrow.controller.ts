@@ -6,10 +6,10 @@ import { borrowModel } from "../../models/borrow";
 
 export const initiateBorrowController = async (req: Request, res: Response) => {
   try {
-    const { userId, bookId, depositAmount } = req.body;
-    console.log(userId,"userId", bookId,"depositAmount", depositAmount);
+    const { userId, bookId } = req.body;
+    console.log(userId,"userId", bookId);
     
-    const result = await initiateBorrow(userId, bookId, depositAmount);
+    const result = await initiateBorrow(userId, bookId);
     console.log(result,"borrow result");
     
     res

@@ -14,14 +14,13 @@ Frontend->subscription
 Frontend->Fine
 Frontend->Refund
 Frontend->Author panel api
-Both->BlogDetail
-FRONTEND->Pasword reset
+>>Both->BlogDetail
+FRONTEND->Pasword resex`t
 FRONTEND->logout
-ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
-BACKEND->Validator
-BACKEND->IMAGE update
-ADMIN FRONTEND->Height of sidebar
-
+>>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
+>>BACKEND->Validator
+>>BACKEND->IMAGE update
+>>ADMIN FRONTEND->Height of sidebar
 
 HEMANSHI->RESETPASSWORD FORM
 HEMANSHI->Book ui 	

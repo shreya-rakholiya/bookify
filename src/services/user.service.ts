@@ -1,6 +1,7 @@
 import { FilterQuery } from "mongoose";
 import { userModel } from "../models/user";
 import { Iuser } from "../types/model.types";
+import { fineModel } from "../models/fine";
 
 export const createUser=async(input:FilterQuery<Iuser>)=>{
     const user=await new userModel(input).save();
@@ -45,4 +46,8 @@ export const findBorrowedBookOfUser=async(userId:string)=>{
     .populate('borrowedBooks')
     .lean()
     return borrowedBooks;
+}
+
+export const findFineOfUser=async(userId:string)=>{
+    const fine=await fineModel.find({user:userId})
 }
