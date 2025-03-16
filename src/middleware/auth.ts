@@ -7,7 +7,7 @@ import { Request } from "../types/request";
 
 export const validateAuthIdToken = async (req:Request, res:Response, next:NextFunction) => {
   const token = req.header("Authorization");
-  // console.log(token);
+  console.log(token);
 
   if (!token) {
     res.status(403).json({ message: "Unauthorized request." });
@@ -16,6 +16,8 @@ export const validateAuthIdToken = async (req:Request, res:Response, next:NextFu
   const decode = Jwt.verify(token, process.env.JWT_SECRET || "secret");
   // @ts-ignore
   let userId = decode.id;
+  console.log(decode,"decode");
+  
 
   console.log(userId,"geirigokoperjoig");
   

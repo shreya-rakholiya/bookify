@@ -1,17 +1,18 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
 import { initiateBorrow, returnBook } from "../../services/borrow.service";
-import { Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 import { borrowModel } from "../../models/borrow";
 
 export const initiateBorrowController = async (req: Request, res: Response) => {
   try {
-    const { userId, bookId } = req.body;
-    console.log(userId,"userId", bookId);
-    
-    const result = await initiateBorrow(userId, bookId);
-    console.log(result,"borrow result");
-    
+    const authuserId = req.authuserId as ObjectId
+    const {bookId } = req.body;
+    console.log(authuserId, "userId", bookId);
+
+    const result = await initiateBorrow(authuserId, bookId);
+    console.log(result, "borrow result");
+
     res
       .status(200)
       .json({ success: true, message: "Suceessfull", data: result });
@@ -26,10 +27,10 @@ export const initiateBorrowController = async (req: Request, res: Response) => {
 
 export const returnBookController = async (req: Request, res: Response) => {
   try {
-    console.log(req.params,"paramsss")
-    const {borrowId} = req.params;
-    console.log(borrowId,"borrowId");
-    
+    console.log(req.params, "paramsss");
+    const { borrowId } = req.params;
+    console.log(borrowId, "borrowId");
+
     const result = await returnBook(borrowId);
     return res.status(200).json({ success: true, data: result });
   } catch (err) {

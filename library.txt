@@ -21,6 +21,8 @@ FRONTEND->logout
 >>BACKEND->Validator
 >>BACKEND->IMAGE update
 >>ADMIN FRONTEND->Height of sidebar
+>>FRONTEND->Book Quantity
+>>FRONTEND->Author create and delete
 
 HEMANSHI->RESETPASSWORD FORM
 HEMANSHI->Book ui 	

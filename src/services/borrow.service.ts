@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 import { bookModel } from "../models/book";
 import { createRazorpayOrder } from "./razorpay.service";
 import { orderModel } from "../models/order";
@@ -42,7 +42,7 @@ import { subscriptionPlanModel } from "../models/subscriptionPlan";
 // }
 
 export const initiateBorrow = async (
-  userId: Types.ObjectId,
+  userId: ObjectId,
   bookId: Types.ObjectId,
   depositAmount: number = 500
 ) => {
