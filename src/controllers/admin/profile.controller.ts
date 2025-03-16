@@ -6,7 +6,7 @@ export const getAdminProfileController=async(req:Request,res:Response)=>{
     try{
         const authUSer=req.authUser;
         const role='admin';
-        const admin=getProfile(authUSer._id,role);
+        const admin=await getProfile(authUSer._id,role);
         if(!admin){
             return res.status(404).json({
                 success:false,
