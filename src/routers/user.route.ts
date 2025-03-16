@@ -11,6 +11,7 @@ import { blogRoute } from "./admin/blog.route";
 import { book } from "./user/book.route";
 import { wishlistRoute } from "./user/wishlist.route";
 import { profileRoute } from "./user/profile.route";
+import { reviewRoute } from "./user/review.route";
 
 const userRoute = express.Router();
 
@@ -25,5 +26,6 @@ userRoute.use("/borrow", borrowRoute);
 userRoute.use("/blog", blogRoute);
 userRoute.use('/wishlist',wishlistRoute)
 userRoute.use('/profile',profileRoute)
+userRoute.use('/review',reviewRoute)
 
 export { userRoute };

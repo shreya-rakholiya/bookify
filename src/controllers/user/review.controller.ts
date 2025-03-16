@@ -45,7 +45,7 @@ export const deleteReviewController = async (req:Request, res:Response) => {
   }
 };
 
-export const getAllReviews =async (req:Request, res:Response) => {
+export const getAllReviewsController =async (req:Request, res:Response) => {
     try{
         const review=await findAllReviews();
 
