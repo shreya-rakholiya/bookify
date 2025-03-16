@@ -20,11 +20,19 @@ FRONTEND->logout
 ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 BACKEND->Validator
 
-MAil->Register mail message
-MAIL->Book Purchase
-MAIL->Book Borrow
 
 
 
 HEMANSHI->RESETPASSWORD FORM
+HEMANSHI->Book ui 
+ 	->Blog deatil
+	->book category change
+	->PRofile in react
+->DASHBOARD RESPONSIVE
 
+
+TRU->book ui change
+	->wishlist chANGW
+MAil->Register mail message
+MAIL->Book Purchase
+MAIL->Book Borrow

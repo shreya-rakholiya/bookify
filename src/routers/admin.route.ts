@@ -6,6 +6,7 @@ import { categoryRoute } from "./admin/category.route";
 import { contact } from "./admin/contact.router";
 import { faq } from "./admin/faq.router";
 import { newsLetterRoute } from "./admin/newsLetter.router";
+import { profileRoute } from "./admin/profile.route";
 
 const adminRoute=express.Router()
 
@@ -16,5 +17,6 @@ adminRoute.use("/faq",faq)
 adminRoute.use("/book",bookRoute)
 adminRoute.use("/book-category",categoryRoute)
 adminRoute.use("/blog",blogRoute)
+adminRoute.use('/profile',profileRoute)
 
 export {adminRoute}

@@ -8,6 +8,6 @@ wishlistRoute.post('/create',validateAuthIdToken,createWishlistController);
 // @ts-ignore
 wishlistRoute.get('/getByUser',validateAuthIdToken,getUserWishlistController)
 // @ts-ignore
-wishlistRoute.delete('/delete/:Wid',validateAuthIdToken,deletewishlistItemController)
+wishlistRoute.delete('/delete/:wId',validateAuthIdToken,deletewishlistItemController)
 
 export {wishlistRoute};

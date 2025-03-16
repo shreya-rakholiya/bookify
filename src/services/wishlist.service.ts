@@ -10,7 +10,10 @@ export const createwishlist=async(input:Iwishlist)=>{
 
 export const findWishlistByuserId=async(userId:string)=>{
     const wishlists=await wishlistModel.find({user:userId})
-    .populate('book');
+    .populate({
+        path:'book',
+        
+    });
     return wishlists;
 }
 
