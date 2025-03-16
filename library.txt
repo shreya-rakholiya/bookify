@@ -2,20 +2,29 @@ done..................................
 login ->token
 profile
 wishlist
-
+Backend->Password reset
+BACKEND->LOGOUT
+ADMIN BACKEND->AUTHOR AND CATEGORY in Book
 
 remaining..................................
 get token
-Frontend->profile 
+Frontend->profile
 Frontend->subscription
 Frontend->Fine
 Frontend->Refund
 Frontend->Author panel api
 Both->BlogDetail
-Frontend->Wishlist1
-Both->Pasword reset
-Both->logout
+Frontend->Wishlist
+FRONTEND->Pasword reset
+FRONTEND->logout
+ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
+BACKEND->Validator
 
 MAil->Register mail message
 MAIL->Book Purchase
 MAIL->Book Borrow
+
+
+
+HEMANSHI->RESETPASSWORD FORM
+

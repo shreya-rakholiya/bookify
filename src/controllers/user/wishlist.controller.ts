@@ -4,6 +4,7 @@ import { createwishlist, deletewishlist, findWishlistByuserId } from "../../serv
 
 export const createWishlistController=async(req:Request,res:Response)=>{
     try{
+        const authUserId=req.authuserId
         const payload=req.body;
         if(!payload){
             return res.status(400).json({
@@ -11,7 +12,7 @@ export const createWishlistController=async(req:Request,res:Response)=>{
                 message: "Please enter wishlist data",
             })
         }
-        const wishlist=await createwishlist(payload);
+        const wishlist=await createwishlist({...payload,user:authUserId});
         return res.status(201).json({
             success: true,
             message: "Wishlist created successfully",

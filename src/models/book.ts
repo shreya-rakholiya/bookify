@@ -9,12 +9,14 @@ const bookSchema = new Schema<Ibook>({
     required: true,
   },
   image:{
-    // type:Types.ObjectId,
-    // ref:"Media"
-    type:String
+    type:Types.ObjectId,
+    ref:"Media"
+    // type:String
   },
   author: {
-    type: String,
+    type:Types.ObjectId,
+    ref:"User",
+    // type: String,
     // ref: "Author",
     default:""
   },
@@ -23,8 +25,10 @@ const bookSchema = new Schema<Ibook>({
     lenght: 13,
   },
   category: {
-    type:String,
-    // ref:"Category",
+    type:Types.ObjectId,
+    ref:"Category",
+    // type:String,
+    // // ref:"Category",
     default:null
   },
   price: {

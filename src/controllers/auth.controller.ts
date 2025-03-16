@@ -1,15 +1,20 @@
 import Joi from "joi";
-import { createUser, findUser } from "../services/user.service";
-import CryptoJS from "crypto-js"; 
-const { AES, enc } = CryptoJS; 
+import { createUser, findUser, updateUser } from "../services/user.service";
+import CryptoJS from "crypto-js";
+const { AES, enc } = CryptoJS;
 import Jwt from "jsonwebtoken";
-import {mailsender} from "../middleware/mailer";
+import { mailsender } from "../middleware/mailer";
 import { Response } from "express";
 import { Request } from "../types/request";
 import { addMedia } from "../services/media.service";
 import { error, profile } from "console";
 import { userModel } from "../models/user";
-import randomstring from "randomstring"
+import randomstring from "randomstring";
+import {
+  createPasswordReset,
+  deletePreviousPasswordReset,
+  findPasswordResetByToken,
+} from "../services/passwordReset.service";
 
 export const registerValidate = Joi.object({
   firstName: Joi.string().required(),
@@ -29,10 +34,10 @@ export const registerValidate = Joi.object({
       "string.pattern": "Password cannot contain spaces.",
     }),
   role: Joi.string(),
-  gender:Joi.string(),
+  gender: Joi.string(),
   phone: Joi.number(),
   address: Joi.string().optional(),
-  profile:Joi.string().optional()
+  profile: Joi.string().optional(),
 });
 
 const loginValidate = Joi.object({
@@ -53,33 +58,43 @@ const loginValidate = Joi.object({
     .required(),
 });
 
-export const uploadProfileImage=async(req:Request, res:Response)=>{
-    try{
-        const file = req.body.files;
-        console.log(file[0].path,"fileeee");
-        
-        if (!file || !file[0].path) {
-            return res.status(400).json({ error: "No file uploaded or invalid file" });
-          }
-          const bookImage=await addMedia({title:"",url:file[0].path,type:"user"})
-          console.log(bookImage);
-          
-          return res.status(201).json({ success: true, message: "Profile Image uploaded successfully",data: bookImage})
-    }catch(err){
-        console.error(err);
-        return res.status(500).json({success: false,message: "Internal Server Error"})
-    }
-}
-
-export const registerController = async (req:Request, res:Response) => {
+export const uploadProfileImage = async (req: Request, res: Response) => {
   try {
-    const payload = await registerValidate
-      .validateAsync(req.body)
-      
+    const file = req.body.files;
+    console.log(file[0].path, "fileeee");
+
+    if (!file || !file[0].path) {
+      return res
+        .status(400)
+        .json({ error: "No file uploaded or invalid file" });
+    }
+    const bookImage = await addMedia({
+      title: "",
+      url: file[0].path,
+      type: "user",
+    });
+    console.log(bookImage);
+
+    return res.status(201).json({
+      success: true,
+      message: "Profile Image uploaded successfully",
+      data: bookImage,
+    });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const registerController = async (req: Request, res: Response) => {
+  try {
+    const payload = await registerValidate.validateAsync(req.body);
 
     const encryptedPassword = AES.encrypt(
       payload.password,
-      process.env.AES_SECRET || "secret",
+      process.env.AES_SECRET || "secret"
     ).toString();
     // console.log(encryptedPassword);
     payload.password = encryptedPassword;
@@ -88,12 +103,12 @@ export const registerController = async (req:Request, res:Response) => {
     //sending mail
     const msg =
       "<p> Hii " + user.firstName + ",<p>You are registered successfully </p>";
-    
+
     mailsender(user.email, "Registration mail", msg);
     res.status(201).json({ msg: "registration succesfull" });
   } catch (err) {
     console.log(err);
-    
+
     return res.status(500).json({
       message:
         "Unable to register user due to server error.Please try again later.",
@@ -102,11 +117,10 @@ export const registerController = async (req:Request, res:Response) => {
   }
 };
 
-export const loginController = async (req:Request, res:Response) => {
+export const loginController = async (req: Request, res: Response) => {
   try {
-    const payload = await loginValidate
-      .validateAsync(req.body)
-    
+    const payload = await loginValidate.validateAsync(req.body);
+
     const userData = await findUser({ email: payload.email });
     if (!userData) {
       return res.status(404).json({ message: "User not found" });
@@ -117,7 +131,7 @@ export const loginController = async (req:Request, res:Response) => {
 
     const originalPassword = AES.decrypt(
       userData.password,
-      process.env.AES_SECRET||"secret"
+      process.env.AES_SECRET || "secret"
     ).toString(enc.Utf8);
 
     // console.log(originalPassword);
@@ -126,12 +140,15 @@ export const loginController = async (req:Request, res:Response) => {
       return res.status(401).json({ message: "invalid credentials" });
     }
 
-    const token = Jwt.sign({ id: userData._id }, process.env.AES_SECRET||"secret");
+    const token = Jwt.sign(
+      { id: userData._id },
+      process.env.AES_SECRET || "secret"
+    );
 
     return res
       .status(200)
       .setHeader("x-auth-token", token)
-      .json({ message: "login successfully",user:userData});
+      .json({ message: "login successfully", user: userData });
   } catch (err) {
     return res.status(500).json({
       message: "Something happened wrong try again after sometime.",
@@ -140,22 +157,99 @@ export const loginController = async (req:Request, res:Response) => {
   }
 };
 
-export const forgetPassword=async(req:Request,res:Response)=>{
-  try{
-    const {email}= req.body;
-    const userData=await findUser({email});
-    if(!userData){
+export const forgetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const userData = await findUser({ email });
+    if (!userData) {
       return res.status(400).json({
-        success:false,
-        message:"User not found"
-      })
+        success: false,
+        message: "User not found",
+      });
     }
-    const randomString=randomstring.generate()
+    const randomString = randomstring.generate();
+    console.log(randomString);
+
+    await deletePreviousPasswordReset(userData._id);
+    const passwordReset = await createPasswordReset({
+      user: userData._id,
+      token: randomString,
+    });
+    const msg =
+      "<p>Hii " +
+      userData.firstName +
+      ', Please click <a href="http://localhost:8080/reset-pas-sword?token=' +
+      randomString +
+      '">here</a>  to reset your password </p>';
+    mailsender(userData.email, "Registration mail", msg);
+    return res.status(201).json({
+      success: true,
+      msg: "Reset password link send to your mail , please check!",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "Something happened wrong while forgatting password",
+      error: (err as Error).message,
+    });
+  }
+};
+
+export const resetPasswordController=async(req:Request,res:Response)=>{
+  try{
+    const authUser=req.authUser;
+    const user=await findUser({_id:authUser._id});
+    if(!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    const {token,password}=req.body;
+    if(!token) {
+      return res.status(400).json({
+        success: false,
+        message: "ResetToken not provided",
+      });
+    }
+    const passwordResetDetail=findPasswordResetByToken(token);
+    if(!passwordResetDetail){
+      return res.status(400).json({
+        success: false,
+        message: "ResetToken not valid or expired",
+      });
+    }
+
+    const encryptedPassword=AES.encrypt(password,process.env.AES_SECRET||"secret").toString();
+    const changePasword=await updateUser({_id:authUser._id},{password:encryptedPassword});
+
+    const passwordReset=await deletePreviousPasswordReset(authUser._id)
+
+    return res.status(200).json({
+      success:true,
+      message:"Password reset successfully"
+    })
   }catch(err){
     return res.status(500).json({
-      success:false,
-      message:"Something happened wrong while forgatting password",
-      error:(err as Error).message
+      success: false,
+      message: "Something happened wrong while resetting password",
+      error: (err as Error).message,
+    });
+  }
+}
+
+
+export const logoutController=async(req:Request,res:Response)=>{
+  try{
+    res.setHeader('x-auth-token','');
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully"
+    });
+  }catch(err){
+    return res.status(500).json({
+      success: false,
+      message: "Something happened wrong while logging out"
     })
   }
 }

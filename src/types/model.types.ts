@@ -1,20 +1,20 @@
 import { ObjectId, Types } from "mongoose";
 
 export interface Iuser {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  profile:ObjectId
-  role: string;
-  gender: string;
-  phone: string;
-  address: string;
-  borrowedBooks: Types.ObjectId[];
-  purchasedBooks: Types.ObjectId[];
-  createdAt: Date;
-  updatedAt: Date;
+  _id?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  profile?:ObjectId
+  role?: string;
+  gender?: string;
+  phone?: string;
+  address?: string;
+  borrowedBooks?: Types.ObjectId[];
+  purchasedBooks?: Types.ObjectId[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface Iauthor {
@@ -44,10 +44,10 @@ export interface Ibook {
   _id: string;
   title: string;
   image: ObjectId;
-  author: string;
+  author: ObjectId;
   price: number;
   isbn: number;
-  category: string;
+  category: ObjectId;
   publishedYear: number;
   publisher: string;
   description: string;
