@@ -30,6 +30,7 @@ export const deleteUser=async(query:FilterQuery<Iuser>)=>{
 
 export const getProfile=async(id:string,role:string)=>{
     const admin=await userModel.find({_id:id,role})
+    .populate('profile')
     return admin;
 }
 
