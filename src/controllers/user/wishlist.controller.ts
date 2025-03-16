@@ -25,6 +25,7 @@ export const createWishlistController=async(req:Request,res:Response)=>{
     }
 }
 
+
 export const deletewishlistItemController=async(req:Request,res:Response)=>{
     try{
         const {wId}=req.params;
@@ -56,14 +57,15 @@ export const deletewishlistItemController=async(req:Request,res:Response)=>{
 
 export const getUserWishlistController=async(req:Request,res:Response)=>{
     try{
-        const {uId}=req.params;
-        if(!uId){
+        // const {uId}=req.params;
+        const authuserId=req.authuserId;
+        if(!authuserId){
             return res.status(400).json({
                 success: false,
                 message: "Please provide user id",
             })
         }
-        const wishlist=await findWishlistByuserId(uId);
+        const wishlist=await findWishlistByuserId(authuserId);
         if(!wishlist){
             return res.status(404).json({
                 success: false,
