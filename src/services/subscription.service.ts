@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 import { razorpay } from "../config/razorpay.config";
 import { subscriptionPlanModel } from "../models/subscriptionPlan";
 import { ISubscriptionPlan } from "../types/model.types";
@@ -216,7 +216,7 @@ export const cancelSubscription=async(subscriptionId:Types.ObjectId)=>{
   }
 }
 
-export const getUserActiveSubscription=async(userId:Types.ObjectId)=>{
+export const getUserActiveSubscription=async(userId:ObjectId)=>{
   try{
     const userSubscription=await subscriptionModel.findOne({userId,status:'active',endDate:{$gt:new Date()}})
     .populate('planId')

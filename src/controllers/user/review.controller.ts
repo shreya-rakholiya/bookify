@@ -5,13 +5,14 @@ import { Request } from "../../types/request";
 export const createReviewController = async (req:Request, res:Response) => {
   try {
     const userId=req.authuserId;
+    const {bId}=req.params;
     const payload = req.body;
     if (!payload) {
       return res
         .status(400)
         .json({ message: "Please enter a valid review", success: false });
     }
-    const review = await createReview({...payload,uesr:userId});
+    const review = await createReview({...payload,uesr:userId,bookId:bId});
     return res.status(201).json({
       success: true,
       message: "create successfully",

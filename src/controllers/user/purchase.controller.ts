@@ -1,13 +1,14 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
 import { initiatePurchase } from "../../services/purchase.service";
-import { Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 import { purchaseModel } from "../../models/purchase";
 
 export const initiatePurchaseController=async(req:Request,res:Response):Promise<any>=>{
     try{
-        const {userId,bookId,quantity}=req.body;
-        const result=await initiatePurchase(userId,bookId,
+        const authuserId=req.authuserId as ObjectId;
+        const {bookId,quantity}=req.body;
+        const result=await initiatePurchase(authuserId,bookId,
         quantity);
         console.log(result,"shreyaa");
         

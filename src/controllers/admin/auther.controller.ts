@@ -62,15 +62,15 @@ export const createAuthorController = async (req:Request, res:Response) => {
 
 export const deleteAuthorController = async (req:Request, res:Response) => {
   try {
-    const author = req.body;
-    if (!author) {
+    const aId = req.params;
+    if (!aId) {
       return res.status(400).json({
         success: false,
         msg: "enter author detail",
       });
     }
 
-    const deletedAuthor = await deleteAuthor(author);
+    const deletedAuthor = await deleteAuthor({_id:aId});
 
     console.log(deletedAuthor);
 

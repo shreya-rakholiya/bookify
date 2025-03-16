@@ -6,6 +6,7 @@ import { purchaseModel } from "../models/purchase";
 import { getSubscriptionPlanById, getUserActiveSubscription } from "./subscription.service";
 import { updateBookAvailibility } from "./book.service";
 import { userModel } from "../models/user";
+import { ObjectId } from "mongoose";
 
 // export const initiatePurchase = async(userId:Types.ObjectId,
 //     bookId:Types.ObjectId,
@@ -46,7 +47,7 @@ import { userModel } from "../models/user";
 //     return {order,purchase};
 // }
 
-export const initiatePurchase = async(userId:Types.ObjectId,
+export const initiatePurchase = async(userId:ObjectId,
     bookId:Types.ObjectId,
     quantity:number
 )=>{
