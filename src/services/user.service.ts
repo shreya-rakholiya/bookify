@@ -2,6 +2,7 @@ import { FilterQuery } from "mongoose";
 import { userModel } from "../models/user";
 import { Iuser } from "../types/model.types";
 import { fineModel } from "../models/fine";
+import path from "path";
 
 export const createUser=async(input:FilterQuery<Iuser>)=>{
     const user=await new userModel(input).save();
@@ -43,7 +44,11 @@ export const updateProfile=async(id:string,role:string,update:Partial<Iuser>)=>{
 export const findBorrowedBookOfUser=async(userId:string)=>{
     const borrowedBooks=await userModel.findById(userId)
     .select('borrowedBooks')
-    .populate('borrowedBooks')
+    .populate({path:'borrowedBooks',
+        populate:{
+            path:'bookId'
+        }
+    })
     .lean()
     return borrowedBooks;
 }
