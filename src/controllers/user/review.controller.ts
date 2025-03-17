@@ -12,7 +12,7 @@ export const createReviewController = async (req:Request, res:Response) => {
         .status(400)
         .json({ message: "Please enter a valid review", success: false });
     }
-    const review = await createReview({...payload,uesr:userId,bookId:bId});
+    const review = await createReview({...payload,user:userId,bookId:bId});
     return res.status(201).json({
       success: true,
       message: "create successfully",

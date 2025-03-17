@@ -6,7 +6,7 @@ import { required } from "joi";
 const reviewSchema=new Schema<Ireview>({
     user:{
         type:Types.ObjectId,
-        ref:"Register",
+        ref:"User",
         required:true
     },
     bookId:{
