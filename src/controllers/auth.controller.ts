@@ -159,7 +159,9 @@ export const loginController = async (req: Request, res: Response) => {
 
 export const forgetPassword = async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
+    const authUSer = req.authUser;
+    const email = authUSer.email;
+    const formPath = req.body;
     const userData = await findUser({ email });
     if (!userData) {
       return res.status(400).json({
@@ -178,8 +180,7 @@ export const forgetPassword = async (req: Request, res: Response) => {
     const msg =
       "<p>Hii " +
       userData.firstName +
-      ', Please click <a href="http://localhost:8080/reset-pas-sword?token=' +
-      randomString +
+      `, Please click <a href="${formPath}?token=${randomString}` +
       '">here</a>  to reset your password </p>';
     mailsender(userData.email, "Registration mail", msg);
     return res.status(201).json({
@@ -195,61 +196,66 @@ export const forgetPassword = async (req: Request, res: Response) => {
   }
 };
 
-export const resetPasswordController=async(req:Request,res:Response)=>{
-  try{
-    const authUser=req.authUser;
-    const user=await findUser({_id:authUser._id});
-    if(!user) {
+export const resetPasswordController = async (req: Request, res: Response) => {
+  try {
+    const authUser = req.authUser;
+    const user = await findUser({ _id: authUser._id });
+    if (!user) {
       return res.status(404).json({
         success: false,
         message: "User not found",
       });
     }
-    const {token,password}=req.body;
-    if(!token) {
+    const { token, password } = req.body;
+    if (!token) {
       return res.status(400).json({
         success: false,
         message: "ResetToken not provided",
       });
     }
-    const passwordResetDetail=findPasswordResetByToken(token);
-    if(!passwordResetDetail){
+    const passwordResetDetail = findPasswordResetByToken(token);
+    if (!passwordResetDetail) {
       return res.status(400).json({
         success: false,
         message: "ResetToken not valid or expired",
       });
     }
 
-    const encryptedPassword=AES.encrypt(password,process.env.AES_SECRET||"secret").toString();
-    const changePasword=await updateUser({_id:authUser._id},{password:encryptedPassword});
+    const encryptedPassword = AES.encrypt(
+      password,
+      process.env.AES_SECRET || "secret"
+    ).toString();
+    const changePasword = await updateUser(
+      { _id: authUser._id },
+      { password: encryptedPassword }
+    );
 
-    const passwordReset=await deletePreviousPasswordReset(authUser._id)
+    const passwordReset = await deletePreviousPasswordReset(authUser._id);
 
     return res.status(200).json({
-      success:true,
-      message:"Password reset successfully"
-    })
-  }catch(err){
+      success: true,
+      message: "Password reset successfully",
+    });
+  } catch (err) {
     return res.status(500).json({
       success: false,
       message: "Something happened wrong while resetting password",
       error: (err as Error).message,
     });
   }
-}
+};
 
-
-export const logoutController=async(req:Request,res:Response)=>{
-  try{
-    res.setHeader('x-auth-token','');
+export const logoutController = async (req: Request, res: Response) => {
+  try {
+    res.setHeader("x-auth-token", "");
     return res.status(200).json({
       success: true,
-      message: "Logged out successfully"
+      message: "Logged out successfully",
     });
-  }catch(err){
+  } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "Something happened wrong while logging out"
-    })
+      message: "Something happened wrong while logging out",
+    });
   }
-}
+};
