@@ -4,8 +4,8 @@ import { createReviewController, getAllReviewsController } from "../../controlle
 const reviewRoute=express.Router();
 
 // @ts-ignore
-reviewRoute.post('/create',validateAuthIdToken,createReviewController)
+reviewRoute.post('/create/:bId',validateAuthIdToken,createReviewController)
 // @ts-ignore
-reviewRoute.get('/getAll',validateAuthIdToken,getAllReviewsController)
+reviewRoute.get('/getAll/:bId',validateAuthIdToken,getAllReviewsController)
 
 export {reviewRoute}

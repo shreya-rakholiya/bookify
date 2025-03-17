@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { createReview, deleteReview, findAllReviews } from "../../services/review.service";
+import { createReview, deleteReview, findAllReviews, findReview } from "../../services/review.service";
 import { Request } from "../../types/request";
 
 export const createReviewController = async (req:Request, res:Response) => {
@@ -47,7 +47,8 @@ export const deleteReviewController = async (req:Request, res:Response) => {
 
 export const getAllReviewsController =async (req:Request, res:Response) => {
     try{
-        const review=await findAllReviews();
+      const {bId}=req.params;
+        const review=await findReview({bookId:bId});
 
         if(!review){
             return res.status(404).send({success: false,message:"there is no review"})
