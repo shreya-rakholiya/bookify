@@ -21,3 +21,7 @@ export const deleteReview=async (query:FilterQuery<Ireview>)=>{
     const review=await reviewModel.deleteOne(query);
     return review;
 }
+
+export const getReviewOfBook=async()=>{
+    
+}

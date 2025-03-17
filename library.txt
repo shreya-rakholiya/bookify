@@ -6,17 +6,19 @@ Backend->Password reset
 BACKEND->LOGOUT
 ADMIN BACKEND->AUTHOR AND CATEGORY in Book
 Frontend->Wishlist
+Frontend->profile
+FRONTEND->logout
+
 
 remaining..................................
 get token
-Frontend->profile
 Frontend->subscription
 Frontend->Fine
 Frontend->Refund
 Frontend->Author panel api
 >>Both->BlogDetail
 FRONTEND->Pasword reset
-FRONTEND->logout
+Author,admin->logout
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator
 >>BACKEND->IMAGE update
