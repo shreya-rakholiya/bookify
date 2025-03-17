@@ -14,9 +14,9 @@ const bookSchema = new Schema<Ibook>({
     // type:String
   },
   author: {
-    type:Types.ObjectId,
-    ref:"User",
-    // type: String,
+    // type:Types.ObjectId,
+    // ref:"User",
+    type: String,
     // ref: "Author",
     default:""
   },
@@ -25,9 +25,9 @@ const bookSchema = new Schema<Ibook>({
     lenght: 13,
   },
   category: {
-    type:Types.ObjectId,
-    ref:"Category",
-    // type:String,
+    // type:Types.ObjectId,
+    // ref:"Category",
+    type:String,
     // // ref:"Category",
     default:null
   },
