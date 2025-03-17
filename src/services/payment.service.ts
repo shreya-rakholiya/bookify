@@ -51,7 +51,7 @@ export const processPayment=async(
                 await updateBookAvailibility(borrow.bookId,-1)
                 console.log(updateBookAvailibility,"updated book");
                
-                await userModel.findByIdAndUpdate(borrow.userId,{$push:{borrowedBooks:borrow.bookId}}) 
+                await userModel.findByIdAndUpdate(borrow.userId,{$push:{borrowedBooks:borrow._id}}) 
             }
             break;
         case 'fine':

@@ -60,6 +60,8 @@ export const getBorrowedBooksController=async(req:Request,res:Response)=>{
                 message:"No borrowed Books Found"
             })
         }
+        console.log(borrowedBooks,"dateeee");
+        
         return res.status(200).json({
             success: true,
             data:borrowedBooks

@@ -28,7 +28,7 @@ export const getAuthorProfileController = async (
   }
 };
 
-export const updateAdminProfileController = async (req:Request, res:Response) => {
+export const updateAuthorProfileController = async (req:Request, res:Response) => {
     try{
         const authUSer=req.authUser;
         const payload=req.body;

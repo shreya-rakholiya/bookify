@@ -15,7 +15,7 @@ Frontend->Fine
 Frontend->Refund
 Frontend->Author panel api
 >>Both->BlogDetail
-FRONTEND->Pasword resex`t
+FRONTEND->Pasword reset
 FRONTEND->logout
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator

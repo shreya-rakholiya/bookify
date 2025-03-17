@@ -83,6 +83,9 @@ export const initiateBorrow = async (
     borrowDate: new Date(),
     dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), //14 days
   });
+
+  console.log(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),"due date");
+  
   //   console.log(borrow,"borrowwww");
 
   return { order, borrow };

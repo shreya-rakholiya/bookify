@@ -45,7 +45,7 @@ const userSchema = new Schema<Iuser>(
       type: String,
       default: "",
     },
-    borrowedBooks: [{ type: Types.ObjectId, ref: "Book" }],
+    borrowedBooks: [{ type: Types.ObjectId, ref: "Borrow" }],
     purchasedBooks: [{ type: Types.ObjectId, ref: "Book" }],
   },
   { timestamps: true }
