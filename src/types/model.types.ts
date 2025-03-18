@@ -194,3 +194,8 @@ export interface ISubscriptionPlan {
   };
   isActive: boolean;
 }
+
+export interface IborrowStatusTrackModel{
+  _id: ObjectId;
+  expireAt:Date
+}

@@ -18,7 +18,8 @@ const fineSchema=new Schema<Ifine>({
     },
     orderId:{
         type:Types.ObjectId,
-        ref:"Order"
+        ref:"Order",
+        default:null
     },
     daysLate:{
         type:Number,

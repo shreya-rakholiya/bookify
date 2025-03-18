@@ -1,4 +1,4 @@
-import { ObjectId, Types } from "mongoose";
+import { FilterQuery, ObjectId, Types } from "mongoose";
 import { bookModel } from "../models/book";
 import { createRazorpayOrder } from "./razorpay.service";
 import { orderModel } from "../models/order";
@@ -8,6 +8,10 @@ import { calculateFine } from "./fine.service";
 import { processDepositeRefund } from "./payment.service";
 import { getUserActiveSubscription } from "./subscription.service";
 import { subscriptionPlanModel } from "../models/subscriptionPlan";
+import { createBorrowStatusTrack } from "./borrowStatusTrack.service";
+import { fineModel } from "../models/fine";
+import { query } from "express";
+import { Iborrow } from "../types/model.types";
 
 // export const initiateBorrow=async(userId:Types.ObjectId,
 //     bookId:Types.ObjectId,
@@ -74,16 +78,20 @@ export const initiateBorrow = async (
     paymentType: "deposit",
     razorpayOrderId,
   });
-
+  let dueDate=new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) //14 days
+  let expireAt = new Date(dueDate.getTime() + 1 * 24 * 60 * 60 * 1000); // 1 extra day
   const borrow = await borrowModel.create({
     userId,
     bookId,
     orderId: order._id,
     depositeAmount: depositAmount,
     borrowDate: new Date(),
-    dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), //14 days
+    dueDate,
   });
-
+  const borrowStatusTrack=await createBorrowStatusTrack({
+    _id:borrow._id,
+    expireAt  
+  })
   console.log(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),"due date");
   
   //   console.log(borrow,"borrowwww");
@@ -112,3 +120,13 @@ export const returnBook = async (borrowId: any) => {
     return calculateFine(borrowId, daysLate);
   }
 };
+
+export const findBorrowRecord=async (_id:ObjectId)=>{
+  const borrow= await borrowModel.findById(_id);
+  return borrow;
+}
+
+export const updateBorrow=async(query:FilterQuery<Iborrow>,update:Partial<Iborrow>)=>{
+  const borrow=await borrowModel.findOneAndUpdate(query,update);
+  return borrow;
+}

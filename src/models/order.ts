@@ -29,7 +29,7 @@ const orderSchema=new Schema<Iorder>({
     }, 
     paymentType:{
         type:String,
-        enum:['purchase','deposit','fine','subscription'],
+        enum:['purchase','deposit','fine','subscription','refund'],
         required:true,
     },
     razorpayOrderId:{

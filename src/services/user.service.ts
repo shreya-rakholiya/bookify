@@ -45,6 +45,20 @@ export const findBorrowedBookOfUser=async(userId:string)=>{
     const borrowedBooks=await userModel.findById(userId)
     .select('borrowedBooks')
     .populate({path:'borrowedBooks',
+        match: { status: 'active' },
+        populate:{
+            path:'bookId'
+        }
+    })
+    .lean()
+    return borrowedBooks;
+}
+
+export const findreturnedBorrowBookOfUser=async(userId:string)=>{
+    const borrowedBooks=await userModel.findById(userId)
+    .select('borrowedBooks')
+    .populate({path:'borrowedBooks',
+        match: { status: 'returned' },
         populate:{
             path:'bookId'
         }

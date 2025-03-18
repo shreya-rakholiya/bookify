@@ -39,3 +39,12 @@ TRU->book ui change
 MAil->Register mail message
 MAIL->Book Purchase
 MAIL->Book Borrow
+
+
+
+
+
+---------------------
+
+wishlist ui change
+add wishlist in store

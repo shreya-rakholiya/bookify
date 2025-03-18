@@ -4,12 +4,13 @@ import { rootRouter } from "./routers/index.route";
 import path from "path"
 
 import { connectDB } from "./connect";
+import { monitorChanges } from "./utility/databaseChangeStream";
 
 const app = express();
 const PORT = process.env.PORT;
 
 connectDB();  // Connect to MongoDB
-
+monitorChanges()
 app.use((req, _, next) => {
   const info =
     req.method +
