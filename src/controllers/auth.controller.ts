@@ -163,7 +163,7 @@ export const forgetPassword = async (req: Request, res: Response) => {
     // const authUSer = req.authUser;
     const {email} = req.body;
     const {formPath} = req.body;
-    const userData = await findUser( email );
+    const userData = await findUser( {email} );
     if (!userData) {
       return res.status(400).json({
         success: false,
