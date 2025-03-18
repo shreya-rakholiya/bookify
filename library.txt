@@ -8,14 +8,15 @@ ADMIN BACKEND->AUTHOR AND CATEGORY in Book
 Frontend->Wishlist
 Frontend->profile
 FRONTEND->logout
+Frontend->Refund
+Frontend->Author panel api
+
 
 
 remaining..................................
 get token
 Frontend->subscription
 Frontend->Fine
-Frontend->Refund
-Frontend->Author panel api
 >>Both->BlogDetail
 FRONTEND->Pasword reset
 Author,admin->logout

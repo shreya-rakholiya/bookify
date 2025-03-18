@@ -14,9 +14,9 @@ authRoute.post("/register", registerController);
 // @ts-ignore
 authRoute.post("/login", loginController);
 // @ts-ignore
-authRoute.post('/forget',validateAuthIdToken,forgetPassword)
+authRoute.post('/forget',forgetPassword)
 // @ts-ignore
-authRoute.patch('/reset',validateAuthIdToken,resetPasswordController)
+authRoute.patch('/reset',resetPasswordController)
 // @ts-ignore
 authRoute.post('/logout',validateAuthIdToken,logoutController)
 
