@@ -9,6 +9,7 @@ export interface Iuser {
   profile?:ObjectId
   role?: string;
   gender?: string;
+  isSubscribed?:boolean
   phone?: string;
   address?: string;
   borrowedBooks?: Types.ObjectId[];
@@ -170,9 +171,9 @@ export interface Iwishlist {
 }
 
 export interface Isubscription {
-  _id: Types.ObjectId | string;
-  userId: Types.ObjectId;
-  planId: Types.ObjectId;
+  _id: ObjectId | string;
+  userId: ObjectId;
+  planId: ObjectId;
   startDate: Date;
   endDate: Date;
   status: "active" | "cancelled" | "expired";

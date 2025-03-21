@@ -97,8 +97,7 @@ export const createSubscriptionPlan = async (
 
 export const getAllSubscriptionPlans = async (activeOnly: boolean = true) => {
   try {
-    const query = activeOnly ? { isActive: true } : {};
-    return await subscriptionPlanModel.find(query);
+    return await subscriptionPlanModel.find();
   } catch (err) {
     throw new Error(
       `Failed to fetch subscription plans:${(err as Error).message}`
@@ -107,12 +106,15 @@ export const getAllSubscriptionPlans = async (activeOnly: boolean = true) => {
 };
 
 export const initiateSubscription = async (
-  userId: Types.ObjectId,
-  planId: Types.ObjectId
+  userId: ObjectId,
+  planId: ObjectId
 ) => {
   try {
     const user = await userModel.findById(userId);
     const plan = await subscriptionPlanModel.findById(planId);
+console.log(user,"userrrrr");
+console.log(plan,"plannnn");
+
 
     if (!user || !plan) {
       throw new Error("User or plan not found");
@@ -186,6 +188,8 @@ export const verifySubscriptionPayment=async(subscriptionId:string,razorpayPayme
         razorpayPaymentId
       },
     );
+
+    await userModel.findOneAndUpdate({_id:subscription.userId},{isSubscribed:true})
 
     return subscription;
   }catch(err){

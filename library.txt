@@ -10,6 +10,9 @@ Frontend->profile
 FRONTEND->logout
 Frontend->Refund
 Frontend->Author panel api
+FRONTEND->Pasword reset
+
+
 
 
 
@@ -18,7 +21,6 @@ get token
 Frontend->subscription
 Frontend->Fine
 >>Both->BlogDetail
-FRONTEND->Pasword reset
 Author,admin->logout
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator
@@ -44,8 +46,25 @@ MAIL->Book Borrow
 
 
 
-
 ---------------------
 
 wishlist ui change
 add wishlist in store
+
+
+
+-------------------
+
+remaining.....
+Author->review
+User->Wishlist to add to cart
+User->Purchase in profile
+PPT->PROJECT PPT----diagram screenshots,profile,limitation ,future enhacment
+User->review->name of user
+E-books
+Invoice
+
+DOC->seatNumber
+->diagram number
+->ER Diagram ---- arrow join
+id->primary

@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
 import { cancelSubscription, createSubscriptionPlan, getAllSubscriptionPlans, getUserActiveSubscription, handlesubscriptionWebhook, initiateSubscription, verifySubscriptionPayment } from "../../services/subscription.service";
+import { ObjectId, Types } from "mongoose";
 
 export const createSubscriptionPlanController=async(req:Request,res:Response)=>{
     try{
@@ -18,8 +19,13 @@ export const createSubscriptionPlanController=async(req:Request,res:Response)=>{
 
 export const getSubscriptionPlanController=async(req:Request,res:Response)=>{
     try{
-        const activeOnly=req.query.activeOnly !== 'false';
-        const plans = await getAllSubscriptionPlans(activeOnly);
+        const plans = await getAllSubscriptionPlans();
+        if(!plans) {
+            return res.status(404).json({
+                success:false,
+                message:"No subscription plans found"
+            })
+        }
         res.status(200).json({success:true,data:plans})
     }catch(err){
         res.status(500).json({err:err.message,successs:false});
@@ -28,8 +34,11 @@ export const getSubscriptionPlanController=async(req:Request,res:Response)=>{
 
 export const initiateSubscriptionController=async(req:Request,res:Response)=>{
     try{
-        const {userId,planId}=req.body
-        const result=await initiateSubscription(userId,planId);
+        const authUserId=req.authuserId as ObjectId;
+        console.log(authUserId,"auhttrg");
+        
+        const {planId}=req.body
+        const result=await initiateSubscription(authUserId,planId);
         res.status(200).json({success:true,data:result});
     }catch(err){
         res.status(400).json({success:false,error:err.message});

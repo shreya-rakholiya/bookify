@@ -1,14 +1,14 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import { Isubscription } from "../types/model.types";
 
 const subscriptionSchema=new Schema<Isubscription>({
     userId:{
-        type:Schema.Types.ObjectId,
+        type:Types.ObjectId,
         ref:'User',
         required:true
     },
     planId:{
-        type:Schema.Types.ObjectId,
+        type:Types.ObjectId,
         ref:'SubscriptionPlan',
         required:true
     },

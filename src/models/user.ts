@@ -1,6 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 import { Iuser } from "../types/model.types";
-import { required } from "joi";
+import { boolean, required } from "joi";
 
 const userSchema = new Schema<Iuser>(
   {
@@ -44,6 +44,10 @@ const userSchema = new Schema<Iuser>(
     address: {
       type: String,
       default: "",
+    },
+    isSubscribed:{
+      type:Boolean,
+      default:false
     },
     borrowedBooks: [{ type: Types.ObjectId, ref: "Borrow" }],
     purchasedBooks: [{ type: Types.ObjectId, ref: "Book" }],
