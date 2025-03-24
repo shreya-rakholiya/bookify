@@ -27,9 +27,9 @@ const blogSchema = new Schema<Iblog>(
       ref: "User",
     },
     blogDetail: {
-      // type: Types.ObjectId,
-      // ref: "BlogDetail",
-      type:String
+      type: Types.ObjectId,
+      ref: "BlogDetail",
+      // type:String
     },
   },
   { timestamps: true }
