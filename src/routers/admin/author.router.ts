@@ -11,7 +11,7 @@ author.post("/create",validateAuthIdToken,validateAdmin,createAuthorController);
 // @ts-ignore
 author.delete("/delete/:aId",validateAuthIdToken,validateAdmin,deleteAuthorController);
 // @ts-ignore
-author.patch("/update",validateAuthIdToken,validateAdmin,updateAuthorController);
+author.patch("/update/:aId",validateAuthIdToken,validateAdmin,updateAuthorController);
 // @ts-ignore
 author.get("/getAll",validateAuthIdToken,validateAdmin,getAllAuthorController);
 

@@ -62,7 +62,7 @@ export const createAuthorController = async (req:Request, res:Response) => {
 
 export const deleteAuthorController = async (req:Request, res:Response) => {
   try {
-    const aId = req.params;
+    const {aId} = req.params;
     if (!aId) {
       return res.status(400).json({
         success: false,
@@ -96,14 +96,15 @@ export const deleteAuthorController = async (req:Request, res:Response) => {
 
 export const updateAuthorController = async (req:Request, res:Response) => {
   try {
-    const author = req.body;
-    if (!author) {
+    const {aId}=req.params;
+    const payload = req.body;
+    if (!payload) {
       return res.status(400).json({
         success: false,
         msg: "enter author detail",
       });
     }
-    const updatedAuthor = await updateAuthor(author.find, author.update);
+    const updatedAuthor = await updateAuthor({_id:aId},payload);
 
     if (!updatedAuthor) {
       return res.status(404).json({

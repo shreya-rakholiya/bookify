@@ -1,14 +1,14 @@
 import {Response } from "express";
-import { findAuthor } from "../../services/author.service";
+import { findAllAuthor, findAuthor } from "../../services/author.service";
 import { Request } from "../../types/request";
 
 
 
 export const findAuthorController=async(req:Request, res:Response)=>{
     try{
-        const {id}=req.params;
+        // const {id}=req.params;
         //@ts-ignore
-        const author=await findAuthor(id);
+        const author=await findAllAuthor();
 
         if(!author){
             return res.status(404).json({
