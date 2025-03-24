@@ -7,7 +7,7 @@ blogRoute.post('/upload',uploadBlogImage)
 // @ts-ignore
 blogRoute.post('/create',createBlogController)
 // @ts-ignore
-blogRoute.get('/get',getBlogController)
+blogRoute.get('/get/:bId',getBlogController)
 // @ts-ignore
 blogRoute.get('/getAll',getAllBlogController)
 // @ts-ignore

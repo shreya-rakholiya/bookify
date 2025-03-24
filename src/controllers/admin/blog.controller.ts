@@ -53,7 +53,7 @@ export const getAllBlogController=async(req:Request, res:Response)=>{
 
 export const  getBlogController=async(req:Request, res:Response)=>{
     try{
-        const bId=req.query.bId;
+        const {bId}=req.params;
         if(!bId){
             return res.status(400).json({success: false,message: "Please provide blog id"})
         }
