@@ -1,6 +1,7 @@
 const express=require("express");
 import {author} from "./admin/author.router";
 import { blogRoute } from "./admin/blog.route";
+import { blogDetailRoute } from "./admin/blogDetail.route";
 import { bookRoute } from "./admin/book.route";
 import { categoryRoute } from "./admin/category.route";
 import { contact } from "./admin/contact.router";
@@ -18,5 +19,6 @@ adminRoute.use("/book",bookRoute)
 adminRoute.use("/book-category",categoryRoute)
 adminRoute.use("/blog",blogRoute)
 adminRoute.use('/profile',profileRoute)
+adminRoute.use('/blogDetail',blogDetailRoute)
 
 export {adminRoute}

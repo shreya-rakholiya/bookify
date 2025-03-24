@@ -11,8 +11,12 @@ FRONTEND->logout
 Frontend->Refund
 Frontend->Author panel api
 FRONTEND->Pasword reset
-
-
+HEMANSHI->RESET PASSWORD FORM
+->PRofile in react
+->DASHBOARD RESPONSIVE	
+Author->review
+Author,admin->logout
+book borrow and purchase button disable 
 
 
 
@@ -21,20 +25,24 @@ get token
 Frontend->subscription
 Frontend->Fine
 >>Both->BlogDetail
-Author,admin->logout
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator
 >>BACKEND->IMAGE update
 >>ADMIN FRONTEND->Height of sidebar
 >>FRONTEND->Book Quantity
 >>FRONTEND->Author create and delete
+backend:update,delete, frontend:all API ADMIN PANEL,User panel
+invoice after buy and borrow
+refund loader
+author api in user panel
+profile icon remove when user logged out
+faq in user panel ->response problem
+DASHBOARD->user,author,book,purchase
 
-HEMANSHI->RESETPASSWORD FORM
+
 HEMANSHI->Book ui 	
  	->Blog deatil
 	->book category change
-	->PRofile in react
-->DASHBOARD RESPONSIVE	
 
 
 TRU->book ui change
@@ -42,7 +50,6 @@ TRU->book ui change
 MAil->Register mail message
 MAIL->Book Purchase
 MAIL->Book Borrow
-
 
 
 
@@ -56,7 +63,7 @@ add wishlist in store
 -------------------
 
 remaining.....
-Author->review
+
 User->Wishlist to add to cart
 User->Purchase in profile
 PPT->PROJECT PPT----diagram screenshots,profile,limitation ,future enhacment
@@ -68,3 +75,4 @@ DOC->seatNumber
 ->diagram number
 ->ER Diagram ---- arrow join
 id->primary
+page number

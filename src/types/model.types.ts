@@ -29,6 +29,8 @@ export interface Iauthor {
 
 export interface IblogDetail {
   _id: string;
+  description : string;
+
 }
 
 export interface Iblog {

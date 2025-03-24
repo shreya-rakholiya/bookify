@@ -68,6 +68,17 @@ export const createRazorpayCustomer = async (
   email: string
 ): Promise<any> => {
   try {
+    const allCustomers = await razorpay.customers.all({});
+
+    // Filter customers by email manually
+    const existingCustomer = allCustomers.items.find(
+      (customer: any) => customer.email === email
+    );
+
+    if (existingCustomer) {
+      return existingCustomer.id;
+    }
+
     const customer = await razorpay.customers.create({
       name,
       email,
@@ -164,8 +175,11 @@ console.log(plan,"plannnn");
 export const verifySubscriptionPayment=async(subscriptionId:string,razorpayPaymentId:string)=>{
 
   try{
+    console.log(razorpayPaymentId,"payment id",subscriptionId,"subscription id");
+    
     const payment=await razorpay.payments.fetch(razorpayPaymentId);
-
+    console.log(payment,"jdsifuhsa");
+    
     if (payment.status!== 'captured') {
       throw new Error(`Payment not captured`);
     }

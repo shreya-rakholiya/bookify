@@ -13,6 +13,7 @@ import { wishlistRoute } from "./user/wishlist.route";
 import { profileRoute } from "./user/profile.route";
 import { reviewRoute } from "./user/review.route";
 import { subscriptionRoute } from "./user/subscription.route";
+import { blogDetailRoute } from "./user/blogDetail.route";
 
 const userRoute = express.Router();
 
@@ -29,5 +30,6 @@ userRoute.use('/wishlist',wishlistRoute)
 userRoute.use('/profile',profileRoute)
 userRoute.use('/review',reviewRoute)
 userRoute.use('/subscription',subscriptionRoute)
+userRoute.use('/blogDetail',blogDetailRoute)
 
 export { userRoute };
