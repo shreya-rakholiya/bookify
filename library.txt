@@ -17,8 +17,8 @@ HEMANSHI->RESET PASSWORD FORM
 Author->review
 Author,admin->logout
 book borrow and purchase button disable 
-
-
+refund loader
+>>ADMIN FRONTEND->Height of sidebar
 
 remaining..................................
 get token
@@ -28,12 +28,9 @@ Frontend->Fine
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator
 >>BACKEND->IMAGE update
->>ADMIN FRONTEND->Height of sidebar
 >>FRONTEND->Book Quantity
->>FRONTEND->Author create and delete
-backend:update,delete, frontend:all API ADMIN PANEL,User panel
+blogDetail->, frontend:all API ADMIN PANEL,User panel
 invoice after buy and borrow
-refund loader
 author api in user panel
 profile icon remove when user logged out
 faq in user panel ->response problem

@@ -40,7 +40,7 @@ export interface Iblog {
   description: string;
   date: Date;
   createdBy?: ObjectId;
-  blogDetail: ObjectId;
+  blogDetail: string[];
 }
 
 export interface Ibook {

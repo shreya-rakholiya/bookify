@@ -1,9 +1,10 @@
 import express from 'express'
 import { createBlogController, deleteBlogController, getAllBlogController, getBlogController, updateBlogController, uploadBlogImage } from '../../controllers/admin/blog.controller'
+import { fileUpload } from '../../middleware/fileUpload'
 
 const blogRoute=express.Router()
 // @ts-ignore
-blogRoute.post('/upload',uploadBlogImage)
+blogRoute.post('/upload',fileUpload,uploadBlogImage)
 // @ts-ignore
 blogRoute.post('/create',createBlogController)
 // @ts-ignore
