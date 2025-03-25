@@ -35,12 +35,12 @@ export interface IblogDetail {
 
 export interface Iblog {
   _id: string;
-  title: string;
-  image: ObjectId;
-  description: string;
-  date: Date;
+  title?: string;
+  image?: ObjectId;
+  description?: string;
+  date?: Date;
   createdBy?: ObjectId;
-  blogDetail: string[];
+  blogDetail?: string[];
 }
 
 export interface Ibook {
