@@ -78,7 +78,7 @@ export const updateBlogController =async (req:Request, res:Response) =>{
                 message:"Please provide book id and book details"
             })
         }
-        const blog=await updateBlog({_id:bId},payload);
+        const blog=await updateBlog({_id:bId},{...payload});
         return res.status(200).json({success: true,message: "Blog updated successfully",data: blog})
     }catch(err){
         console.error(err);

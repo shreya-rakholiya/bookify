@@ -4,13 +4,13 @@ import { validateAuthIdToken } from '../../middleware/auth';
 
 const subscriptionRoute=express.Router()
 
-subscriptionRoute.post('/plans',createSubscriptionPlanController)
-subscriptionRoute.get('/plans',getSubscriptionPlanController)
-subscriptionRoute.post('/initiate',validateAuthIdToken,initiateSubscriptionController)
-subscriptionRoute.post('/verify',verifySubscriptionPaymentController)
-subscriptionRoute.post('cancle/:subscriptionId',cancelSubscriptionController)
-subscriptionRoute.get('/user/:userId',getUserSubscriptionCpntroller)
+subscriptionRoute.post('/plans',validateAuthIdToken,createSubscriptionPlanController)
+subscriptionRoute.get('/plans',validateAuthIdToken,getSubscriptionPlanController)
+subscriptionRoute.post('/initiate',validateAuthIdToken,validateAuthIdToken,initiateSubscriptionController)
+subscriptionRoute.post('/verify',validateAuthIdToken,verifySubscriptionPaymentController)
+subscriptionRoute.post('/cancle/:subscriptionId',validateAuthIdToken,cancelSubscriptionController)
+subscriptionRoute.get('/user/:userId',validateAuthIdToken,getUserSubscriptionCpntroller)
 
-subscriptionRoute.post('/webhook',handleWebhook)
+subscriptionRoute.post('/webhook',validateAuthIdToken,handleWebhook)
 
 export {subscriptionRoute}

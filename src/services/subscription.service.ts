@@ -214,7 +214,7 @@ export const verifySubscriptionPayment=async(subscriptionId:string,razorpayPayme
 
 export const cancelSubscription=async(subscriptionId:Types.ObjectId)=>{
   try{
-    const subscription = await subscriptionModel.findById(subscriptionId);
+    const subscription = await subscriptionModel.findOne({razorpaySubscriptionId:subscriptionId});
     if(!subscription){
       throw new Error("Subscription not found");
     }

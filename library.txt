@@ -19,6 +19,9 @@ Author,admin->logout
 book borrow and purchase button disable 
 refund loader
 >>ADMIN FRONTEND->Height of sidebar
+profile icon remove when user logged out
+
+
 
 remaining..................................
 get token
@@ -32,7 +35,6 @@ Frontend->Fine
 blogDetail->, frontend:all API ADMIN PANEL,User panel
 invoice after buy and borrow
 author api in user panel
-profile icon remove when user logged out
 faq in user panel ->response problem
 DASHBOARD->user,author,book,purchase
 

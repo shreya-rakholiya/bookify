@@ -2,10 +2,20 @@ import { Response } from "express";
 import { Request } from "../../types/request";
 import { cancelSubscription, createSubscriptionPlan, getAllSubscriptionPlans, getUserActiveSubscription, handlesubscriptionWebhook, initiateSubscription, verifySubscriptionPayment } from "../../services/subscription.service";
 import { ObjectId, Types } from "mongoose";
+import { subscriptionModel } from "../../models/subscription";
 
 export const createSubscriptionPlanController=async(req:Request,res:Response)=>{
     try{
+        const authId=req.authuserId;
+
         const planData=req.body;
+        const subscription=await subscriptionModel.find({userId:authId,status:{$ne:'cancelled'}});
+        if(subscription){
+            return res.status(400).json({
+                success:false,
+                message:"User already has a subscription"
+            })
+        }
         const plan=await createSubscriptionPlan(planData);
         res.status(201).json({
             success:true,
