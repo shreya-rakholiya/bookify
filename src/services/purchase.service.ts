@@ -134,3 +134,7 @@ export const initiatePurchase = async(userId:ObjectId,
     return {order,purchase,freeBookUsed,requiresPayment:totalAmount>0};
 }
 
+export const countPurchase=async()=>{
+    const count=await purchaseModel.countDocuments();
+    return count;
+  }

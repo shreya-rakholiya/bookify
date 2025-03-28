@@ -5,9 +5,11 @@ import { blogDetailRoute } from "./admin/blogDetail.route";
 import { bookRoute } from "./admin/book.route";
 import { categoryRoute } from "./admin/category.route";
 import { contact } from "./admin/contact.router";
+import { dashboardRoute } from "./admin/dashboard.route";
 import { faq } from "./admin/faq.router";
 import { newsLetterRoute } from "./admin/newsLetter.router";
 import { profileRoute } from "./admin/profile.route";
+import { userRoute } from "./user.route";
 
 const adminRoute=express.Router()
 
@@ -20,5 +22,7 @@ adminRoute.use("/book-category",categoryRoute)
 adminRoute.use("/blog",blogRoute)
 adminRoute.use('/profile',profileRoute)
 adminRoute.use('/blogDetail',blogDetailRoute)
+adminRoute.use('/dashboard',dashboardRoute)
+adminRoute.use('/user',userRoute)
 
 export {adminRoute}

@@ -2,7 +2,7 @@ import { Response } from "express";
 import { Request } from "../../types/request";
 import { findAllUser } from "../../services/user.service";
 
-export const getAlluserController = async (req: Request, res: Response) => {
+export const getAlluserController = async (req: Request, res: Response):Promise<any> => {
   try {
     const user = await findAllUser();
     if (!user) {

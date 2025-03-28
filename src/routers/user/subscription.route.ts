@@ -9,7 +9,7 @@ subscriptionRoute.get('/plans',validateAuthIdToken,getSubscriptionPlanController
 subscriptionRoute.post('/initiate',validateAuthIdToken,validateAuthIdToken,initiateSubscriptionController)
 subscriptionRoute.post('/verify',validateAuthIdToken,verifySubscriptionPaymentController)
 subscriptionRoute.post('/cancle/:subscriptionId',validateAuthIdToken,cancelSubscriptionController)
-subscriptionRoute.get('/user/:userId',validateAuthIdToken,getUserSubscriptionCpntroller)
+subscriptionRoute.get('/get/:userId',validateAuthIdToken,getUserSubscriptionCpntroller)
 
 subscriptionRoute.post('/webhook',validateAuthIdToken,handleWebhook)
 

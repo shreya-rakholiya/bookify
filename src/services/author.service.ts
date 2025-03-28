@@ -14,7 +14,7 @@ export const findAuthor=async (query:FilterQuery<Iauthor>)=>{
 }
 
 export const findAllAuthor=async()=>{
-    const authors=await userModel.find();
+    const authors=await userModel.find({role:'author'});
     return authors;
 }
 

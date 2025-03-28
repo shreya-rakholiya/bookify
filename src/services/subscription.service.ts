@@ -238,6 +238,14 @@ export const getUserActiveSubscription=async(userId:ObjectId)=>{
   try{
     const userSubscription=await subscriptionModel.findOne({userId,status:'active',endDate:{$gt:new Date()}})
     .populate('planId')
+    .populate({
+      path:'userId',
+      populate:({
+        path:'profile'
+      })
+    })
+    .lean()
+    return userSubscription;
   }catch(err){
     throw new Error(`Failed to fetch user subscription:${(err as Error).message}`);
   }

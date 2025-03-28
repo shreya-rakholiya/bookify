@@ -59,3 +59,8 @@ export const updateBookAvailibility = async (
   
   return book;
 };
+
+export const countBook=async()=>{
+  const count=await bookModel.countDocuments();
+  return count;
+}

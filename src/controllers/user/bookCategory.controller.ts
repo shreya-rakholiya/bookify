@@ -4,7 +4,7 @@ import { Response } from "express";
 import { findAllCategory } from "../../services/category.service";
 import { Request } from "../../types/request";
 
-export const getAllBookCategory=async(req:Request,res:Response)=>{
+export const getAllBookCategory=async(req:Request,res:Response):Promise<any>=>{
     try{
         const category = await findAllCategory()
 

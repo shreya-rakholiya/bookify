@@ -10,7 +10,7 @@ export const createUser=async(input:FilterQuery<Iuser>)=>{
 }
 
 export const findAllUser=async()=>{
-    const users=await userModel.find();
+    const users=await userModel.find({role: 'user'});
     return users;
 }
 
@@ -69,4 +69,9 @@ export const findreturnedBorrowBookOfUser=async(userId:string)=>{
 
 export const findFineOfUser=async(userId:string)=>{
     const fine=await fineModel.find({user:userId})
+}
+
+export const countUserForSpecificRole=async(type:string)=>{
+    const count=await userModel.countDocuments({role:type});
+    return count;
 }

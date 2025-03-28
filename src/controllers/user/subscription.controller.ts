@@ -18,7 +18,7 @@ export const createSubscriptionPlanController=async(req:Request,res:Response)=>{
         }
         const plan=await createSubscriptionPlan(planData);
         res.status(201).json({
-            success:true,
+  success:true,
             data:plan
         })
     }catch(err){
@@ -46,7 +46,13 @@ export const initiateSubscriptionController=async(req:Request,res:Response)=>{
     try{
         const authUserId=req.authuserId as ObjectId;
         console.log(authUserId,"auhttrg");
-        
+        const user=req.authUser;
+        if (user.isSubscribed==true) {
+            return res.status(403).json({
+                message:"You already have subscription"
+            })
+        }
+
         const {planId}=req.body
         const result=await initiateSubscription(authUserId,planId);
         res.status(200).json({success:true,data:result});
@@ -79,6 +85,7 @@ export const getUserSubscriptionCpntroller=async(req:Request, res:Response)=>{
     try{
         const {userId}=req.params;
         const subscription=await getUserActiveSubscription(userId)
+        
         res.status(200).json({success:true,data:subscription})
     }catch(err){
         res.status(404).json({success:false,error:err.message});

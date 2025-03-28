@@ -20,24 +20,26 @@ book borrow and purchase button disable
 refund loader
 >>ADMIN FRONTEND->Height of sidebar
 profile icon remove when user logged out
-
+blogDetail->, frontend:all API ADMIN PANEL,User panel
+>>Both->BlogDetail
+backend->DASHBOARD->user,author,book,purchase
+faq in user panel ->response problem
 
 
 remaining..................................
 get token
 Frontend->subscription
 Frontend->Fine
->>Both->BlogDetail
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator
 >>BACKEND->IMAGE update
 >>FRONTEND->Book Quantity
-blogDetail->, frontend:all API ADMIN PANEL,User panel
 invoice after buy and borrow
 author api in user panel
-faq in user panel ->response problem
-DASHBOARD->user,author,book,purchase
-
+frontend->DASHBOARD->user,author,book,purchase
+User->review->name of user
+admin->user
+user author admin
 
 HEMANSHI->Book ui 	
  	->Blog deatil
@@ -58,7 +60,6 @@ wishlist ui change
 add wishlist in store
 
 
-
 -------------------
 
 remaining.....
@@ -66,9 +67,9 @@ remaining.....
 User->Wishlist to add to cart
 User->Purchase in profile
 PPT->PROJECT PPT----diagram screenshots,profile,limitation ,future enhacment
-User->review->name of user
 E-books
 Invoice
+
 
 DOC->seatNumber
 ->diagram number

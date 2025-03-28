@@ -8,12 +8,16 @@ export const createReview=async (input:FilterQuery<Ireview>)=>{
 };
 
 export const findReview=async (query:FilterQuery<Ireview>)=>{
-    const review=await reviewModel.find(query);
+    const review=await reviewModel.find(query)
+    .populate('user')
+    .populate('bookId');
     return review;
 }
 
 export const findAllReviews=async ()=>{
-    const review=await reviewModel.find();
+    const review=await reviewModel.find()
+    .populate('user')
+    .populate('bookId');
     return review;
 }
 
