@@ -24,12 +24,13 @@ export const uploadBookImage=async(req:Request, res:Response)=>{
 export const createBookController= async(req:Request,res:Response)=>{
     try{
         const payload=req.body;
+        const authUserId=req.authuserId
 
         if(!payload){
             return res.status(400).json({success: false,message: "Please enter book details"})
         }
 
-        const book=await createBook(payload);
+        const book=await createBook({...payload,author:authUserId});
         return res.status(201).json({success: true,message: "Book Create successfully",data: book})
     }catch(err){
         console.error(err);

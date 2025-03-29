@@ -3,15 +3,15 @@ import { Ibook } from "../types/model.types";
 import { bookModel } from "../models/book";
 
 export const createBook = async (input: FilterQuery<Ibook>) => {
-  const book = await new bookModel(input).save();
+  const book = await bookModel.create(input)
   return book;
 };
 
 export const findBook = async (bookId: any) => {
   const book = await bookModel.findOne({_id:bookId})
   .populate('image')
-  // .populate('author')
-  // .populate('category')
+  .populate('author')
+  .populate('category')
   // .populate('reviews')
   .lean();
   // console.log(book,"bookkkkk");

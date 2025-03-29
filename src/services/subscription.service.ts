@@ -144,11 +144,25 @@ console.log(plan,"plannnn");
       1
     ); //Intially create for 1 cycle)
 
+     // Fetch the subscription status from Razorpay
+     const subscriptionDetails = await razorpay.subscriptions.fetch(
+      razorpaySubscription.id
+    );
+
+    // console.log(subscriptionDetails, "Subscription Details from Razorpay");
+
+    // if (subscriptionDetails.status !== "completed") {
+    //   throw new Error(
+    //     `Subscription not active. Current status: ${subscriptionDetails.status}`
+    //   );
+    // }
+
     //Calculate end date based on plan duration
     const startDate=new Date();
     const endDate=new Date();
     endDate.setMonth(endDate.getMonth()+plan.durationMonth)
 
+    
     //create subscription order
     const order=await orderModel.create({
       user,
