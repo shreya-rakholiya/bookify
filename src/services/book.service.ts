@@ -14,7 +14,7 @@ export const findBook = async (bookId: any) => {
   .populate('category')
   // .populate('reviews')
   .lean();
-  // console.log(book,"bookkkkk");
+  console.log(book,"bookkkkk");
   
   return book;
 };

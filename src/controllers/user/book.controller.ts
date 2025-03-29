@@ -25,8 +25,11 @@ export const getBookController=async(req:Request, res:Response)=>{
         if(!bId){
             return res.status(400).json({success: false,message: "Please provide book id"})
         }
+        console.log(bId,"biddd");
+        
         const book=await findBook(bId);
-
+        console.log(book,"book");
+        
         if(!book){
             return res.status(404).json({
                 success:false,

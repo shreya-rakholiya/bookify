@@ -55,12 +55,13 @@ export const initiateBorrow = async (
   if (!book || book.copiesAvailable <= 0) {
     throw new Error("Book not available");
   }
-
+  console.log(activeSubscription,"activeSubscription");
+  
   //Apply subscription discount to deposit if applicable
 
   let finalDepositAmount=depositAmount;
 
-  if(activeSubscription){
+  if(activeSubscription.length > 0) {
     const plan=await subscriptionPlanModel.findById(activeSubscription.planId);
     if(plan?.benefit.dipositDiscountPercent){
       const discount=(depositAmount*plan.benefit.dipositDiscountPercent)/100;
@@ -68,13 +69,13 @@ export const initiateBorrow = async (
     }
   }
 
-  const razorpayOrderId = await createRazorpayOrder(depositAmount);
+  const razorpayOrderId = await createRazorpayOrder(finalDepositAmount);
   // console.log(razorpayOrderId,"rrazorpayOrderId");
 
   const order = await orderModel.create({
     user: userId,
     book: bookId,
-    amount: depositAmount,
+    amount: finalDepositAmount,
     paymentType: "deposit",
     razorpayOrderId,
   });
@@ -84,7 +85,7 @@ export const initiateBorrow = async (
     userId,
     bookId,
     orderId: order._id,
-    depositeAmount: depositAmount,
+    depositeAmount: finalDepositAmount,
     borrowDate: new Date(),
     dueDate,
   });

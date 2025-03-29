@@ -248,7 +248,7 @@ export const cancelSubscription=async(subscriptionId:string)=>{
   }
 }
 
-export const getUserActiveSubscription=async(userId:string)=>{
+export const getUserActiveSubscription=async(userId:ObjectId)=>{
   try{
     const userSubscription=await subscriptionModel.findOne({userId,status:'active',endDate:{$gt:new Date()}})
     .populate('planId')
@@ -259,6 +259,8 @@ export const getUserActiveSubscription=async(userId:string)=>{
       })
     })
     .lean()
+    // console.log(userSubscription,"userSubscription");
+    
     return userSubscription;
   }catch(err){
     throw new Error(`Failed to fetch user subscription:${(err as Error).message}`);
