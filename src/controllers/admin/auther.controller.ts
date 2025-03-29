@@ -104,7 +104,7 @@ export const updateAuthorController = async (req:Request, res:Response) => {
         msg: "enter author detail",
       });
     }
-    const updatedAuthor = await updateAuthor({_id:aId},payload);
+    const updatedAuthor = await updateAuthor({_id:aId},{...payload});
 
     if (!updatedAuthor) {
       return res.status(404).json({
