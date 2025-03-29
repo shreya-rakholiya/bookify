@@ -48,6 +48,8 @@ export const initiateSubscriptionController=async(req:Request,res:Response):Prom
         const authUserId=req.authuserId as ObjectId;
         console.log(authUserId,"auhttrg");
         const user=req.authUser;
+        console.log(user.isSubscribed,"subscribeddddddddddd");
+        
         if (user.isSubscribed==true) {
             return res.status(403).json({
                 message:"You already have subscription"

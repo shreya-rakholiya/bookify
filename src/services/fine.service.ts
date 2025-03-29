@@ -50,7 +50,7 @@ export const updatefine = async (
 
 export const updateAmountOfFine = async (query:FilterQuery<Ifine>) => {
     
-    const fine=await fineModel.updateOne(query,{amount:})
+    // const fine=await fineModel.updateOne(query,{amount})
 };
 export const getFine = async (userId: string) => {
   const fines = await fineModel.find({ user: userId }).populate({
