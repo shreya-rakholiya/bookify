@@ -37,7 +37,7 @@ export const uploadAuthorImage=async(req:Request, res:Response)=>{
 
 export const createAuthorController = async (req:Request, res:Response) => {
   try {
-    const payload = await authorValidate.validateAsync(req.body);
+    const payload = req.body;
 
     if (!payload) {
       return res.status(400).json({
