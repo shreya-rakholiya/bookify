@@ -212,7 +212,7 @@ export const verifySubscriptionPayment=async(subscriptionId:string,razorpayPayme
   }
 }
 
-export const cancelSubscription=async(subscriptionId:Types.ObjectId)=>{
+export const cancelSubscription=async(subscriptionId:string)=>{
   try{
     const subscription = await subscriptionModel.findOne({razorpaySubscriptionId:subscriptionId});
     if(!subscription){
@@ -220,13 +220,13 @@ export const cancelSubscription=async(subscriptionId:Types.ObjectId)=>{
     }
 
     //Cancel on Razorpay
-    razorpay.subscriptions.cancel(subscription.razorpaySubscriptionId,{cancle_at_cycle_end:true});
+    await razorpay.subscriptions.cancel(subscription.razorpaySubscriptionId,{cancel_at_cycle_end:true});
 
     //Update subscription
     subscription.status='cancelled';
     subscription.autoRenew=false;
     await subscription.save();
-
+    
     return subscription;
   }catch(err){
     console.log("Error cancelling subscription", err);
@@ -234,7 +234,7 @@ export const cancelSubscription=async(subscriptionId:Types.ObjectId)=>{
   }
 }
 
-export const getUserActiveSubscription=async(userId:ObjectId)=>{
+export const getUserActiveSubscription=async(userId:string)=>{
   try{
     const userSubscription=await subscriptionModel.findOne({userId,status:'active',endDate:{$gt:new Date()}})
     .populate('planId')

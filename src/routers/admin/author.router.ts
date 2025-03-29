@@ -3,9 +3,10 @@ import { createAuthorController, deleteAuthorController, updateAuthorController,
 const author=express.Router();
 import {validateAuthIdToken} from "../../middleware/auth";
 import { validateAdmin } from "../../middleware/validateAdmin";
+import { fileUpload } from "../../middleware/fileUpload";
 
 // @ts-ignore
-author.post("/upload",validateAuthIdToken,validateAdmin,uploadAuthorImage);
+author.post("/upload",validateAuthIdToken,validateAdmin,fileUpload,uploadAuthorImage);
 // @ts-ignore
 author.post("/create",validateAuthIdToken,validateAdmin,createAuthorController);
 // @ts-ignore

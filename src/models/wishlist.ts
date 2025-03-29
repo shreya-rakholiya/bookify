@@ -6,7 +6,7 @@ const wishlistSchema=new Schema<Iwishlist>({
     user:{
         type:Types.ObjectId,
         required:true,
-        ref:"Register"
+        ref:"User"
     },
     book:{
         type:Types.ObjectId,

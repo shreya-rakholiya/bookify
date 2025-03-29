@@ -41,6 +41,9 @@ User->review->name of user
 admin->user
 user author admin
 
+subscription card & subscription plan
+
+
 HEMANSHI->Book ui 	
  	->Blog deatil
 	->book category change

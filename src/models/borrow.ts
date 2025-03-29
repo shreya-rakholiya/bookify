@@ -6,7 +6,7 @@ const borrowSchema = new Schema<Iborrow>(
   {
     userId: {
       type: Types.ObjectId,
-      ref: "Register",
+      ref: "User",
       required: true,
     },
     bookId: {

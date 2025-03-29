@@ -3,8 +3,9 @@ import { Request } from "../../types/request";
 import { cancelSubscription, createSubscriptionPlan, getAllSubscriptionPlans, getUserActiveSubscription, handlesubscriptionWebhook, initiateSubscription, verifySubscriptionPayment } from "../../services/subscription.service";
 import { ObjectId, Types } from "mongoose";
 import { subscriptionModel } from "../../models/subscription";
+import { updateUser } from "../../services/user.service";
 
-export const createSubscriptionPlanController=async(req:Request,res:Response)=>{
+export const createSubscriptionPlanController=async(req:Request,res:Response):Promise<any>=>{
     try{
         const authId=req.authuserId;
 
@@ -27,7 +28,7 @@ export const createSubscriptionPlanController=async(req:Request,res:Response)=>{
     }
 }
 
-export const getSubscriptionPlanController=async(req:Request,res:Response)=>{
+export const getSubscriptionPlanController=async(req:Request,res:Response):Promise<any>=>{
     try{
         const plans = await getAllSubscriptionPlans();
         if(!plans) {
@@ -42,7 +43,7 @@ export const getSubscriptionPlanController=async(req:Request,res:Response)=>{
     }
 }
 
-export const initiateSubscriptionController=async(req:Request,res:Response)=>{
+export const initiateSubscriptionController=async(req:Request,res:Response):Promise<any>=>{
     try{
         const authUserId=req.authuserId as ObjectId;
         console.log(authUserId,"auhttrg");
@@ -73,8 +74,12 @@ export const verifySubscriptionPaymentController=async(req:Request,res:Response)
 
 export const cancelSubscriptionController=async(req:Request,res:Response)=>{
     try{
+        const authUserId=req.authuserId
         const {subscriptionId}=req.params;
         const result=await cancelSubscription(subscriptionId);
+        if(result){
+            await updateUser({_id:authUserId},{isSubscribed:false})
+        }
         res.status(200).json({success:true,data:result})
     }catch(err){
         res.status(400).json({success:false,error:err.message});
