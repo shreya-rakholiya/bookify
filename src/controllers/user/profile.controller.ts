@@ -14,6 +14,8 @@ import { borrowModel } from "../../models/borrow";
 export const getUserProfileController = async (req: Request, res: Response) => {
   try {
     const authUSer = req.authUser;
+    console.log(authUSer,"authUser");
+    
     const role = "user";
     const admin = await getProfile(authUSer._id, role);
     if (!admin) {

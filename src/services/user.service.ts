@@ -1,4 +1,4 @@
-import { FilterQuery } from "mongoose";
+import { FilterQuery, ObjectId } from "mongoose";
 import { userModel } from "../models/user";
 import { Iuser } from "../types/model.types";
 import { fineModel } from "../models/fine";
@@ -19,8 +19,9 @@ export const findAllUser = async () => {
 
 export const findUser = async (query: FilterQuery<Iuser>) => {
   console.log(query, "servicesss");
-  const user = await (await userModel.findOne(query))
+  const user = await userModel.findOne(query)
     .populate('profile')
+    .lean()
   return user;
 };
 
@@ -37,13 +38,13 @@ export const deleteUser = async (query: FilterQuery<Iuser>) => {
   return user;
 };
 
-export const getProfile = async (id: string, role: string) => {
+export const getProfile = async (id: ObjectId, role: string) => {
   const admin = await userModel.find({ _id: id, role }).populate("profile");
   return admin;
 };
 
 export const updateProfile = async (
-  id: string,
+  id: ObjectId,
   role: string,
   update: Partial<Iuser>
 ) => {
@@ -51,7 +52,7 @@ export const updateProfile = async (
   return admin;
 };
 
-export const findBorrowedBookOfUser = async (userId: string) => {
+export const findBorrowedBookOfUser = async (userId: ObjectId) => {
   const borrowedBooks = await userModel
     .findById(userId)
     .select("borrowedBooks")
@@ -66,7 +67,7 @@ export const findBorrowedBookOfUser = async (userId: string) => {
   return borrowedBooks;
 };
 
-export const findreturnedBorrowBookOfUser = async (userId: string) => {
+export const findreturnedBorrowBookOfUser = async (userId:ObjectId) => {
   const borrowedBooks = await userModel
     .findById(userId)
     .select("borrowedBooks")
@@ -81,7 +82,7 @@ export const findreturnedBorrowBookOfUser = async (userId: string) => {
   return borrowedBooks;
 };
 
-export const findFineOfUser = async (userId: string) => {
+export const findFineOfUser = async (userId: ObjectId) => {
   const fine = await fineModel.find({ user: userId });
 };
 

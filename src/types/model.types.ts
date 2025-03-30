@@ -1,7 +1,7 @@
 import { ObjectId, Types } from "mongoose";
 
 export interface Iuser {
-  _id?: string;
+  _id?: ObjectId;
   firstName?: string;
   lastName?: string;
   email?: string;
