@@ -25,23 +25,26 @@ blogDetail->, frontend:all API ADMIN PANEL,User panel
 backend->DASHBOARD->user,author,book,purchase
 faq in user panel ->response problem
 Frontend->subscription
+subscription card & subscription plan
+Frontend->Fine
+>>FRONTEND->Book Quantity
+frontend->DASHBOARD->user,author,book,purchase
+admin->user
+author api in user panel
+User->review->name of user
+user author admin
+>>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
+
+
+
 
 
 remaining..................................
 get token
-Frontend->Fine
->>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator
 >>BACKEND->IMAGE update
->>FRONTEND->Book Quantity
 invoice after buy and borrow
-author api in user panel
-frontend->DASHBOARD->user,author,book,purchase
-User->review->name of user
-admin->user
-user author admin
 
-subscription card & subscription plan
 
 
 HEMANSHI->Book ui 	
