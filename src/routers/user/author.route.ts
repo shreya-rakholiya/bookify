@@ -5,6 +5,6 @@ import { validateAdmin } from "../../middleware/validateAdmin";
 const author=express.Router();
 
 // @ts-ignore
-author.post("/get",validateAuthIdToken,findAuthorController);
+author.get("/get",validateAuthIdToken,findAuthorController);
 
 export {author}
