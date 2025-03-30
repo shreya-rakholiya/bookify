@@ -11,21 +11,21 @@ const orderSchema=new Schema<Iorder>({
         type:Types.ObjectId,    
         ref:"Book"
     },
-    borrowId:{
-        type:Types.ObjectId,
-        ref:"Borrow",
-        default:""
-    },
-    fineId:{
-        type:Types.ObjectId,
-        ref:"Fine",
-        default:""
-    },
-    purchaseId:{
-        type:Types.ObjectId,
-        ref:"Purchase",
-        default:""
-    },
+    // borrowId:{
+    //     type:Types.ObjectId,
+    //     ref:"Borrow",
+    //     default:""
+    // },
+    // fineId:{
+    //     type:Types.ObjectId,
+    //     ref:"Fine",
+    //     default:""
+    // },
+    // purchaseId:{
+    //     type:Types.ObjectId,
+    //     ref:"Purchase",
+    //     default:""
+    // },
     amount:{
         type:Number,
         required:true,

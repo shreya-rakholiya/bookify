@@ -123,9 +123,9 @@ export const returnBook = async (borrowId: any) => {
   await updateBookAvailibility(borrow?.bookId, 1);
   await processDepositeRefund(borrow);
 
-  if (daysLate > 0) {
-    return calculateFine(borrowId, daysLate);
-  }
+  // if (daysLate > 0) {
+  //   return calculateFine(borrowId, daysLate);
+  // }
 };
 
 export const findBorrowRecord=async (_id:ObjectId)=>{

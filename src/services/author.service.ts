@@ -24,6 +24,6 @@ export const updateAuthor=async(query:FilterQuery<Iauthor>,update:Partial<Iautho
 }
 
 export const deleteAuthor=async (query:FilterQuery<Iauthor>)=>{
-    const author = await authorModel.deleteOne({...query,role:'author'});
+    const author = await userModel.deleteOne({...query,role:'author'});
     return author;
 }

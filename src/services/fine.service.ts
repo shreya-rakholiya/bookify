@@ -35,6 +35,32 @@ export const calculateFine = async (
   return { fine, order };
 };
 
+
+export const initiateFine=async(
+  userId: string,
+  borrowId: string,
+)=>{
+  const fine=await findFine(borrowId,userId);
+  if(!fine){
+    throw new Error("Fine record not found");
+  }
+  const razorpayOrderId=await createRazorpayOrder(fine.amount)
+
+  const order=await orderModel.create({
+    userId,
+    borrowId,
+    amount: fine.amount,
+    paymentType: "fine",
+    razorpayOrderId,
+  })
+
+  const fineRecord =await fineModel.updateOne({_id:fine._id},{
+    orderId:order._id,
+  })
+
+  return {fine: fineRecord,order};
+}
+
 export const createFine = async (input: FilterQuery<Ifine>) => {
   const fine = await fineModel.create(input);
   return fine;
@@ -48,10 +74,6 @@ export const updatefine = async (
   return fine;
 };
 
-export const updateAmountOfFine = async (query:FilterQuery<Ifine>) => {
-    
-    // const fine=await fineModel.updateOne(query,{amount})
-};
 export const getFine = async (userId: string) => {
   const fines = await fineModel.find({ user: userId }).populate({
     path: "borrowId",
@@ -62,7 +84,7 @@ export const getFine = async (userId: string) => {
   return fines;
 };
 
-export const findFine=async(bId:string)=>{
-  const fine=await fineModel.findOne({borrowId:bId});
+export const findFine=async(bId:string,userId?:string)=>{
+  const fine=await fineModel.findOne({borrowId:bId,user:userId});
   return fine;
 }
