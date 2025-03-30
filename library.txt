@@ -24,11 +24,11 @@ blogDetail->, frontend:all API ADMIN PANEL,User panel
 >>Both->BlogDetail
 backend->DASHBOARD->user,author,book,purchase
 faq in user panel ->response problem
+Frontend->subscription
 
 
 remaining..................................
 get token
-Frontend->subscription
 Frontend->Fine
 >>ADMIN FRONTEND->AUTHOR AND CATEGORY in Book
 >>BACKEND->Validator

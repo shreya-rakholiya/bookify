@@ -61,9 +61,15 @@ export const initiateBorrow = async (
 
   let finalDepositAmount=depositAmount;
 
-  if(activeSubscription.length > 0) {
+  if(activeSubscription) {
+    console.log("enter" );
+    
     const plan=await subscriptionPlanModel.findById(activeSubscription.planId);
+    console.log(plan.benefit.dipositDiscountPercent,"plann");
+    
     if(plan?.benefit.dipositDiscountPercent){
+      console.log("enter222");
+      
       const discount=(depositAmount*plan.benefit.dipositDiscountPercent)/100;
       finalDepositAmount=depositAmount-discount
     }
@@ -113,7 +119,7 @@ export const returnBook = async (borrowId: any) => {
   borrow.returnDate = new Date();
   borrow.status = "returned";
   await borrow.save();
-// @ts-ignore
+// @ts-ignore 
   await updateBookAvailibility(borrow?.bookId, 1);
   await processDepositeRefund(borrow);
 
@@ -131,3 +137,14 @@ export const updateBorrow=async(query:FilterQuery<Iborrow>,update:Partial<Iborro
   const borrow=await borrowModel.findOneAndUpdate(query,update);
   return borrow;
 }
+
+export const overdueBooks=async()=>{
+  const overDue=borrowModel.find({
+    dueDate:{
+      $lt:new Date()
+    },
+    status:{$ne:'returned'}
+  })
+  return overDue;
+}
+

@@ -22,8 +22,8 @@ export const findBook = async (bookId: any) => {
 export const findAllBook = async () => {
   const books = await bookModel.find()
   .populate('image')
-  // .populate('author')
-  // .populate('category')
+  .populate('author')
+  .populate('category')
   // .populate('reviews')
   .lean();
   // console.log(books,"allll boookkkksss");

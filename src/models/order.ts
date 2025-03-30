@@ -13,15 +13,18 @@ const orderSchema=new Schema<Iorder>({
     },
     borrowId:{
         type:Types.ObjectId,
-        ref:"Borrow"
+        ref:"Borrow",
+        default:""
     },
     fineId:{
         type:Types.ObjectId,
-        ref:"Fine"
+        ref:"Fine",
+        default:""
     },
     purchaseId:{
         type:Types.ObjectId,
-        ref:"Purchase"
+        ref:"Purchase",
+        default:""
     },
     amount:{
         type:Number,

@@ -61,3 +61,8 @@ export const getFine = async (userId: string) => {
   });
   return fines;
 };
+
+export const findFine=async(bId:string)=>{
+  const fine=await fineModel.findOne({borrowId:bId});
+  return fine;
+}
