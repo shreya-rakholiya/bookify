@@ -144,6 +144,7 @@ export const countPurchase = async () => {
 
 
 export const findPurchase=async(userId:ObjectId)=>{
-  const purchases=await purchaseModel.find({user:userId});
+  const purchases=await purchaseModel.find({user:userId})
+  .populate('book');
   return purchases;
 }
