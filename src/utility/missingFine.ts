@@ -8,7 +8,7 @@ export const proccessMissedFine = async () => {
   console.log("Checking and Proocessing missed fine...");
 
   const overdueBorrow = await overdueBooks();
-  console.log(overdueBorrow,"overdueborrow");
+  // console.log(overdueBorrow,"overdueborrow");
   
   for (const borrow of overdueBorrow) {
     const overdueDays = Math.floor(
@@ -17,7 +17,7 @@ export const proccessMissedFine = async () => {
     console.log(overdueDays,"overdue days");
     
     let fine = await findFine(borrow._id);
-    console.log(fine,"fineeee");
+    // console.log(fine,"fineeee");
     
     if (!fine) {
       console.log("create");
@@ -29,7 +29,7 @@ export const proccessMissedFine = async () => {
         daysLate: overdueDays,
         status: "pending",
       });
-      console.log(fine,"fineee");
+      // console.log(fine,"fineee");
       
     } else if (fine.status === "pending") {
       console.log("enter update");

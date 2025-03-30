@@ -2,7 +2,7 @@ import { Response } from "express";
 import { Request } from "../../types/request";
 import { initiateFine } from "../../services/fine.service";
 
-export const initiateFineController=async(req:Request,res:Response)=>{
+export const initiateFineController=async(req:Request,res:Response):Promise<any>=>{
     try{
         const authuserId=req.authuserId.toString()
         const {borrowId}=req.body;

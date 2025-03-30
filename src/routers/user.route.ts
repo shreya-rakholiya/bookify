@@ -14,7 +14,9 @@ import { profileRoute } from "./user/profile.route";
 import { reviewRoute } from "./user/review.route";
 import { subscriptionRoute } from "./user/subscription.route";
 import { blogDetailRoute } from "./user/blogDetail.route";
-import { categoryRoute } from "./admin/category.route";
+// import { categoryRoute } from "./admin/category.route";
+import { fineRoute } from "./user/fine.route";
+import { categoryRoute } from "./user/category.route";
 
 const userRoute = express.Router();
 
@@ -33,5 +35,6 @@ userRoute.use('/review',reviewRoute)
 userRoute.use('/subscription',subscriptionRoute)
 userRoute.use('/blogDetail',blogDetailRoute)
 userRoute.use('/category',categoryRoute)
+userRoute.use('/fine',fineRoute)
 
 export { userRoute };
