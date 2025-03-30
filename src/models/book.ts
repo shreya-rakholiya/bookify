@@ -11,13 +11,10 @@ const bookSchema = new Schema<Ibook>({
   image:{
     type:Types.ObjectId,
     ref:"Media"
-    // type:String
   },
   author: {
     type:Types.ObjectId,
     ref:"User",
-    // type: String,
-    // ref: "Author",
     default:""
   },
   isbn: {
@@ -27,8 +24,6 @@ const bookSchema = new Schema<Ibook>({
   category: {
     type:Types.ObjectId,
     ref:"Category",
-    // type:String,
-    // // ref:"Category",
     default:null
   },
   price: {

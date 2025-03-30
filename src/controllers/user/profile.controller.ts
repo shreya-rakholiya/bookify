@@ -10,8 +10,9 @@ import { createFine, findFine, getFine } from "../../services/fine.service";
 import { fineModel } from "../../models/fine";
 import { updateBorrow } from "../../services/borrow.service";
 import { borrowModel } from "../../models/borrow";
+import { findPurchase } from "../../services/purchase.service";
 
-export const getUserProfileController = async (req: Request, res: Response) => {
+export const getUserProfileController = async (req: Request, res: Response):Promise<any>=> {
   try {
     const authUSer = req.authUser;
     console.log(authUSer,"authUser");
@@ -39,7 +40,7 @@ export const getUserProfileController = async (req: Request, res: Response) => {
 export const updateUserProfileController = async (
   req: Request,
   res: Response
-) => {
+):Promise<any> => {
   try {
     const authUSer = req.authUser;
     const payload = req.body;
@@ -66,7 +67,7 @@ export const updateUserProfileController = async (
 export const getBorrowedBooksController = async (
   req: Request,
   res: Response
-) => {
+):Promise<any> => {
   try {
     const authUserId = req.authuserId;
     // @ts-ignore
@@ -129,7 +130,7 @@ export const getBorrowedBooksController = async (
 export const getReturnedBooksController = async (
   req: Request,
   res: Response
-) => {
+):Promise<any> => {
   try {
     const authUserId = req.authuserId;
     // @ts-ignore
@@ -154,9 +155,9 @@ export const getReturnedBooksController = async (
   }
 };
 
-export const getfinecontroller = async (req: Request, res: Response) => {
+export const getfinecontroller = async (req: Request, res: Response):Promise<any>=> {
   try {
-    const authUserId = req.authuserId as string;
+    const authUserId = req.authuserId;
     const fine = await getFine(authUserId);
     if (!fine) {
       return res.status(404).json({
@@ -177,3 +178,26 @@ export const getfinecontroller = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getPurchaseController=async(req:Request,res:Response):Promise<any>=>{
+  try{
+    const authUserId = req.authuserId;
+    const purchase=await findPurchase(authUserId);
+    if(!purchase){
+      return res.status(404).json({
+        success: false,
+        message:"No purchase found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      data: purchase,
+      message:"Purchase fetched successfully",
+    });
+  }catch(err){
+    return res.status(500).json({
+      success:false,
+      message:err.message,
+    });
+  }
+}

@@ -35,31 +35,36 @@ export const calculateFine = async (
   return { fine, order };
 };
 
-
-export const initiateFine=async(
+export const initiateFine = async (
   userId: string,
-  borrowId: ObjectId,
-):Promise<any>=>{
-  const fine=await findFine(borrowId);
-  if(!fine){
+  borrowId: ObjectId
+): Promise<any> => {
+  const fine = await findFine(borrowId);
+  if (!fine) {
     throw new Error("Fine record not found");
   }
-  const razorpayOrderId=await createRazorpayOrder(fine.amount)
+  const razorpayOrderId = await createRazorpayOrder(fine.amount);
+  console.log(razorpayOrderId, "razorpay order");
 
-  const order=await orderModel.create({
-    userId,
+  const order = await orderModel.create({
+    user: userId,
     borrowId,
     amount: fine.amount,
     paymentType: "fine",
     razorpayOrderId,
-  })
+  });
+  console.log(order, "ordeerrrrr");
 
-  const fineRecord =await fineModel.updateOne({_id:fine._id},{
-    orderId:order._id,
-  })
+  const fineRecord = await fineModel.findByIdAndUpdate(
+    { _id: fine._id },
+    {
+      orderId: order._id,
+    },{new:true}
+  );
+  console.log(fineRecord, "fine record");
 
-  return {fine: fineRecord,order};
-}
+  return { fine: fineRecord, order };
+};
 
 export const createFine = async (input: FilterQuery<Ifine>) => {
   const fine = await fineModel.create(input);
@@ -75,20 +80,22 @@ export const updatefine = async (
 };
 
 export const getFine = async (userId: ObjectId) => {
-  const fines = await fineModel.find({ user: userId }).populate({
+  const fines = await fineModel.find({ user: userId,status:{$ne:'paid'} }).populate({
     path: "borrowId",
     populate: {
       path: "bookId",
     },
   });
-  console.log(fines,"fineessss");
-  
+  console.log(fines, "fineessss");
+
   return fines;
 };
 
-export const findFine=async(bId:ObjectId)=>{
+export const findFine = async (bId: ObjectId) => {
   console.log(bId);
-  const fine=await fineModel.findOne({borrowId:bId});
+  const fine = await fineModel.findOne({ borrowId: bId });
   // console.log(fine);
   return fine;
-}
+};
+
+

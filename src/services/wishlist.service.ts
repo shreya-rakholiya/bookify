@@ -12,7 +12,9 @@ export const findWishlistByuserId=async(userId:string)=>{
     const wishlists=await wishlistModel.find({user:userId})
     .populate({
         path:'book',
-        
+        populate:{
+            path:'author category image'
+        }
     });
     return wishlists;
 }

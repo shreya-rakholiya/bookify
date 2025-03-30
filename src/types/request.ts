@@ -4,7 +4,7 @@ import { ObjectId } from "mongoose";
 
 export interface Request extends expresesRequest {
   authUser?:Iuser ;
-  authuserId?: string | ObjectId;
+  authuserId?: ObjectId;
   isAdmin: boolean;
   files?:
     | { [fieldname: string]: Express.Multer.File[] }

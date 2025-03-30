@@ -141,3 +141,9 @@ export const countPurchase = async () => {
   const count = await purchaseModel.countDocuments();
   return count;
 };
+
+
+export const findPurchase=async(userId:ObjectId)=>{
+  const purchases=await purchaseModel.find({user:userId});
+  return purchases;
+}
