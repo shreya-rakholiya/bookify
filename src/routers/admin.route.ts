@@ -9,7 +9,8 @@ import { dashboardRoute } from "./admin/dashboard.route";
 import { faq } from "./admin/faq.router";
 import { newsLetterRoute } from "./admin/newsLetter.router";
 import { profileRoute } from "./admin/profile.route";
-import { userRoute } from "./user.route";
+import { userRoute } from "./admin/user.route";
+
 
 const adminRoute=express.Router()
 

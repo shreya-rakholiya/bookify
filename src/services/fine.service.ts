@@ -38,9 +38,9 @@ export const calculateFine = async (
 
 export const initiateFine=async(
   userId: string,
-  borrowId: string,
+  borrowId: ObjectId,
 )=>{
-  const fine=await findFine(borrowId,userId);
+  const fine=await findFine(borrowId);
   if(!fine){
     throw new Error("Fine record not found");
   }
@@ -74,7 +74,7 @@ export const updatefine = async (
   return fine;
 };
 
-export const getFine = async (userId: string) => {
+export const getFine = async (userId: ObjectId) => {
   const fines = await fineModel.find({ user: userId }).populate({
     path: "borrowId",
     populate: {
@@ -84,7 +84,9 @@ export const getFine = async (userId: string) => {
   return fines;
 };
 
-export const findFine=async(bId:string,userId?:string)=>{
-  const fine=await fineModel.findOne({borrowId:bId,user:userId});
+export const findFine=async(bId:ObjectId)=>{
+  console.log(bId);
+  const fine=await fineModel.findOne({borrowId:bId});
+  console.log(fine);
   return fine;
 }

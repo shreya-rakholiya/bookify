@@ -75,7 +75,7 @@ export const getBorrowedBooksController = async (
         message: "No borrowed Books Found",
       });
     }
-    
+
     console.log(borrowRecord, "dateeee");
     const currentDate = new Date();
 
@@ -114,7 +114,7 @@ export const getBorrowedBooksController = async (
 
     return res.status(200).json({
       success: true,
-      data: borrows,
+      data: borrowRecord,
     });
   } catch (err) {
     return res.status(500).json({
