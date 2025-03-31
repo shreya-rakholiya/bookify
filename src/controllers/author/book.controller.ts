@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
-import { createBook, deleteBook, findAllBook, findBook, updateBook } from "../../services/book.service";
+import { createBook, deleteBook, findAllBook, findBook, getBookByAuthor, updateBook } from "../../services/book.service";
 import { addMedia } from "../../services/media.service";
 
 export const uploadBookImage=async(req:Request, res:Response)=>{
@@ -40,8 +40,16 @@ export const createBookController= async(req:Request,res:Response)=>{
 
 export const getAllBookController=async(req:Request,res:Response)=>{
     try{
-        const book=await findAllBook();
+        const authUserId=req.authuserId;
+        if(!authUserId){
+            return res.status(403).json({
+                success:false,
+                message:"Auth user not found"
+            })
+        }
+        const book=await getBookByAuthor(authUserId);
 
+        // @ts-ignore
         if(!book){
             return res.status(404).send({success: false,message:"there is no book"})
         }

@@ -6,6 +6,7 @@ export interface Request extends expresesRequest {
   authUser?:Iuser ;
   authuserId?: ObjectId;
   isAdmin: boolean;
+  isAuthor:boolean;
   files?:
     | { [fieldname: string]: Express.Multer.File[] }
     | Express.Multer.File[];

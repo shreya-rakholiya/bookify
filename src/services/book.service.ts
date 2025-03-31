@@ -1,4 +1,4 @@
-import { FilterQuery, Types } from "mongoose";
+import { FilterQuery, ObjectId, Types } from "mongoose";
 import { Ibook } from "../types/model.types";
 import { bookModel } from "../models/book";
 
@@ -63,4 +63,7 @@ export const updateBookAvailibility = async (
 export const countBook=async()=>{
   const count=await bookModel.countDocuments();
   return count;
+}
+export const getBookByAuthor=async(aId:ObjectId)=>{
+  const book=await bookModel.find({author:aId})
 }
