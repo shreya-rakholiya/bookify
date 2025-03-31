@@ -67,3 +67,8 @@ export const countBook=async()=>{
 export const getBookByAuthor=async(aId:ObjectId)=>{
   const book=await bookModel.find({author:aId})
 }
+
+export const countBookOfAuthor=async(aId:ObjectId)=>{
+  const count=await bookModel.countDocuments({author:aId});
+  return count;
+}
