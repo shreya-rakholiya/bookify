@@ -14,6 +14,6 @@ bookRoute.patch('/update/:bId',validateAuthIdToken,updateBookController)
 // @ts-ignore
 bookRoute.delete('/delete/:bId',validateAuthIdToken,deleteBookController)
 // @ts-ignore
-bookRoute.get('/get',validateAuthIdToken,getAllBookController)
+bookRoute.get('/get',validateAuthIdToken,validateAuthor,getAllBookController)
 
 export {bookRoute}

@@ -66,6 +66,10 @@ export const countBook=async()=>{
 }
 export const getBookByAuthor=async(aId:ObjectId)=>{
   const book=await bookModel.find({author:aId})
+  .populate('image')
+  .populate('author')
+  .populate('category')
+  return book;
 }
 
 export const countBookOfAuthor=async(aId:ObjectId)=>{
