@@ -9,6 +9,7 @@ import { dashboardRoute } from "./admin/dashboard.route";
 import { faq } from "./admin/faq.router";
 import { newsLetterRoute } from "./admin/newsLetter.router";
 import { profileRoute } from "./admin/profile.route";
+import { purchaseRoute } from "./admin/purchase.route";
 import { userRoute } from "./admin/user.route";
 
 
@@ -25,5 +26,6 @@ adminRoute.use('/profile',profileRoute)
 adminRoute.use('/blogDetail',blogDetailRoute)
 adminRoute.use('/dashboard',dashboardRoute)
 adminRoute.use('/user',userRoute)
+adminRoute.use('/purchase',purchaseRoute)
 
 export {adminRoute}

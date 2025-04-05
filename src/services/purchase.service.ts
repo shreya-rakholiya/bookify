@@ -148,3 +148,37 @@ export const findPurchase=async(userId:ObjectId)=>{
   .populate('book');
   return purchases;
 }
+
+export const findAllPurchase=async()=>{
+  const purchase=await purchaseModel.find()
+  .populate({path:'user',
+    select:"firstName lastName email phone",
+  })
+  .populate({path:'book',
+    select:"title",
+    populate:{
+      path:'author',
+      select:"firstName lastName"
+    }
+  })
+  .select("amount quantity purchaseDate")
+  .lean()
+  return purchase
+}
+
+export const findPurchaseHistory=async(pId:ObjectId)=>{
+  const purchase=await purchaseModel.findOne({_id:pId})
+  .populate({path:'user',
+    select:"firstName lastName email phone",
+  })
+  .populate({path:'book',
+    select:"title",
+    populate:{
+      path:'author',
+      select:"firstName lastName"
+    }
+  })
+  .select("amount quantity purchaseDate")
+  .lean()
+  return purchase
+}
