@@ -35,7 +35,13 @@ export const updateBook = async (
   query: FilterQuery<Ibook>,
   update: Partial<Ibook>
 ) => {
-  const book = await bookModel.updateOne(query, update, { new: true });
+  let book;
+  if(update.totalCopies){
+     book = await bookModel.updateOne(query, {...update,$inc: { copiesAvailable: update.totalCopies }}, { new: true });
+  }else{
+    book = await bookModel.updateOne(query, update, { new: true });
+  }
+  
   return book;
 };
 
