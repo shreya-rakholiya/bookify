@@ -21,6 +21,7 @@ export const uploadBookImage=async(req:Request, res:Response)=>{
     }
 }
 
+
 export const createBookController= async(req:Request,res:Response)=>{
     try{
         const payload=req.body;

@@ -149,7 +149,7 @@ export const findPurchase=async(userId:ObjectId)=>{
   return purchases;
 }
 
-export const findAllPurchase=async()=>{
+export const findAllPurchase=async(   )=>{
   const purchase=await purchaseModel.find()
   .populate({path:'user',
     select:"firstName lastName email phone",
