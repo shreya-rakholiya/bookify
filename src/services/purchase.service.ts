@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { FilterQuery, Types } from "mongoose";
 import { bookModel } from "../models/book";
 import { createRazorpayOrder } from "./razorpay.service";
 import { orderModel } from "../models/order";
@@ -10,6 +10,7 @@ import {
 import { updateBookAvailibility } from "./book.service";
 import { userModel } from "../models/user";
 import { ObjectId } from "mongoose";
+import { Ipurchase } from "../types/model.types";
 
 // export const initiatePurchase = async(userId:Types.ObjectId,
 //     bookId:Types.ObjectId,
@@ -147,6 +148,294 @@ export const findPurchase=async(userId:ObjectId)=>{
   const purchases=await purchaseModel.find({user:userId})
   .populate('book');
   return purchases;
+}
+
+export const findPurchaseforAuthor=async(authorId:ObjectId)=>{
+  const result = await userModel.aggregate([
+    {
+      $match: {
+        _id: authorId,
+        role: "author",
+      },
+    },
+    {
+      $lookup: {
+        from: "books",
+        localField: "_id",
+        foreignField: "author",
+        as: "books",
+      },
+    },
+    { $unwind: { path: "$books", preserveNullAndEmptyArrays: true } },
+    {
+      $lookup: {
+        from: "purchases",
+        localField: "books._id",
+        foreignField: "book",
+        as: "bookPurchases",
+      },
+    },
+    { $unwind: { path: "$bookPurchases", preserveNullAndEmptyArrays: true } },
+    {
+      $match:{
+        "bookPurchases.status": "completed",
+      }
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "bookPurchases.user",
+        foreignField: "_id",
+        as: "buyerDetails",
+      },
+    },
+    { $unwind: { path: "$buyerDetails", preserveNullAndEmptyArrays: true } },
+    {
+      $group: {
+        _id: {
+          bookId: "$books._id",
+          purchaseId: "$bookPurchases._id",
+        },
+        bookId: { $first: "$books._id" },
+        bookTitle: { $first: "$books.title" },
+        purchase: {
+          $first: {
+            _id: "$bookPurchases._id",
+            orderId: "$bookPurchases.orderId",
+            quantity: "$bookPurchases.quantity",
+            totalAmount: "$bookPurchases.totalAmount",
+            status: "$bookPurchases.status",
+            purchaseDate: "$bookPurchases.purchaseDate",
+            user: {
+              _id: "$buyerDetails._id",
+              firstName: "$buyerDetails.firstName",
+              lastName: "$buyerDetails.lastName",
+              email: "$buyerDetails.email",
+            },
+          },
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$bookId",
+        title: { $first: "$bookTitle" },
+        purchases: { $push: "$purchase" },
+      },
+    },
+    {
+      $group: {
+        _id: authorId,
+        books: {
+          $push: {
+            _id: "$_id",
+            title: "$title",
+            purchases: "$purchases",
+          },
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "_id",
+        foreignField: "_id",
+        as: "authorDetails",
+      },
+    },
+    { $unwind: "$authorDetails" },
+    {
+      $project: {
+        _id: 1,
+        authorName: {
+          $concat: [
+            "$authorDetails.firstName",
+            " ",
+            "$authorDetails.lastName",
+          ],
+        },
+        email: "$authorDetails.email",
+        books: 1,
+      },
+    },
+  ]);
+  
+  
+
+
+
+  
+  // const result = await userModel.aggregate([
+  //   {
+  //     $match: {
+  //       _id: authorId,
+  //       role: "author",
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "books",
+  //       localField: "_id",
+  //       foreignField: "author",
+  //       as: "books",
+  //     },
+  //   },
+  //   { $unwind: { path: "$books", preserveNullAndEmptyArrays: true } },
+    
+  //   // Get purchases for this book
+  //   {
+  //     $lookup: {
+  //       from: "purchases",
+  //       localField: "books._id",
+  //       foreignField: "book",
+  //       as: "bookPurchases",
+  //     },
+  //   },
+  //   { $unwind: { path: "$bookPurchases", preserveNullAndEmptyArrays: true } },
+  
+  //   // Get user details for each purchase
+  //   {
+  //     $lookup: {
+  //       from: "users",
+  //       localField: "bookPurchases.user",
+  //       foreignField: "_id",
+  //       as: "buyerDetails",
+  //     },
+  //   },
+  //   {
+  //     $unwind: { path: "$buyerDetails", preserveNullAndEmptyArrays: true },
+  //   },
+  
+  //   // Format each purchase with user details inside
+  //   {
+  //     $addFields: {
+  //       "bookPurchases.user": "$buyerDetails",
+  //     },
+  //   },
+  
+  //   // Group purchases back by book
+  //   {
+  //     $group: {
+  //       _id: "$books._id",
+  //       title: { $first: "$books.title" },
+  //       purchases: { $push: "$bookPurchases" },
+  //     },
+  //   },
+  
+  //   // Group books back by author
+  //   {
+  //     $group: {
+  //       _id: authorId,
+  //       books: {
+  //         $push: {
+  //           _id: "$_id",
+  //           title: "$title",
+  //           purchases: "$purchases",
+  //         },
+  //       },
+  //     },
+  //   },
+  
+  //   // Add author details
+  //   {
+  //     $lookup: {
+  //       from: "users",
+  //       localField: "_id",
+  //       foreignField: "_id",
+  //       as: "authorDetails",
+  //     },
+  //   },
+  //   { $unwind: "$authorDetails" },
+  
+  //   // Final projection
+  //   {
+  //     $project: {
+  //       _id: 1,
+  //       authorName: {
+  //         $concat: ["$authorDetails.firstName", " ", "$authorDetails.lastName"],
+  //       },
+  //       email: "$authorDetails.email",
+  //       books: 1,
+  //     },
+  //   },
+  // ]);
+  
+  // const result = await userModel.aggregate([
+  //   {
+  //     $match: {
+  //       _id:authorId,
+  //       role: "author",
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "books",
+  //       localField: "_id",
+  //       foreignField: "author",
+  //       as: "books",
+  //     },
+  //   },
+  //   { $unwind: { path: "$books", preserveNullAndEmptyArrays: true } },
+  //   {
+  //     $lookup: {
+  //       from: "purchases",
+  //       localField: "books._id",
+  //       foreignField: "book",
+  //       as: "purchases",
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "users",
+  //       localField: "purchases.user",
+  //       foreignField: "_id",
+  //       as: "buyers",
+  //     },
+  //   },
+  //   {
+  //     $group: {
+  //       _id: "$books._id",
+  //       bookTitle: { $first: "$books.title" },
+  //       bookId: { $first: "$books._id" },
+  //       purchases: { $first: "$purchases" },
+  //       buyers: { $first: "$buyers" },
+  //     },
+  //   },
+  //   {
+  //     $group: {
+  //       _id:authorId,
+  //       books: {
+  //         $push: {
+  //           _id: "$bookId",
+  //           title: "$bookTitle",
+  //           purchases: "$purchases",
+  //           buyers: "$buyers",
+  //         },
+  //       },
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "users",
+  //       localField: "_id",
+  //       foreignField: "_id",
+  //       as: "authorDetails",
+  //     },
+  //   },
+  //   { $unwind: "$authorDetails" },
+  //   {
+  //     $project: {
+  //       _id: 1,
+  //       authorName: {
+  //         $concat: ["$authorDetails.firstName", " ", "$authorDetails.lastName"],
+  //       },
+  //       email: "$authorDetails.email",
+  //       books: 1,
+  //     },
+  //   },
+  // ]);
+
+  return result
 }
 
 export const findAllPurchase=async(   )=>{

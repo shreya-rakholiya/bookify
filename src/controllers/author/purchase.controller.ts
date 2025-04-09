@@ -1,14 +1,15 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
 import { error } from "console";
-import { findAllPurchase } from "../../services/purchase.service";
+import { findAllPurchase, findPurchaseforAuthor } from "../../services/purchase.service";
 
 export const purchaseController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const purchase = await findAllPurchase();
+    const authorId=req.authuserId;
+    const purchase = await findPurchaseforAuthor(authorId);
     if(!purchase.length){
         return res.status(404).json({
           success: false,
