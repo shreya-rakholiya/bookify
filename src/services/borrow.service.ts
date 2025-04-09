@@ -148,3 +148,16 @@ export const overdueBooks=async()=>{
   return overDue;
 }
 
+export const findAllBorrow=async()=>{
+  const borrow=await borrowModel.find()
+  .populate({path:'bookId',select:"title",populate:{
+    path:'author',
+    select:"firstName lastName"
+  }})
+  .populate({path:'userId',
+    select:"firstName lastName email phone"
+  })
+  .select("borrowDate depositeAmount")
+  .populate('orderId');
+  return borrow
+}

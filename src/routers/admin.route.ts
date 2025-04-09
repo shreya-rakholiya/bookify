@@ -3,6 +3,7 @@ import {author} from "./admin/author.router";
 import { blogRoute } from "./admin/blog.route";
 import { blogDetailRoute } from "./admin/blogDetail.route";
 import { bookRoute } from "./admin/book.route";
+import { borrowRoute } from "./admin/borrow.route";
 import { categoryRoute } from "./admin/category.route";
 import { contact } from "./admin/contact.router";
 import { dashboardRoute } from "./admin/dashboard.route";
@@ -27,5 +28,6 @@ adminRoute.use('/blogDetail',blogDetailRoute)
 adminRoute.use('/dashboard',dashboardRoute)
 adminRoute.use('/user',userRoute)
 adminRoute.use('/purchase',purchaseRoute)
+adminRoute.use('/borrow',borrowRoute)
 
 export {adminRoute}
