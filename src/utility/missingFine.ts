@@ -15,7 +15,7 @@ export const proccessMissedFine = async () => {
       (Date.now() - borrow.dueDate.getTime()) / (1000 * 60 * 60 * 24)
     );
     console.log(overdueDays,"overdue days");
-    
+    // @ts-ignore
     let fine = await findFine(borrow._id);
     // console.log(fine,"fineeee");
     

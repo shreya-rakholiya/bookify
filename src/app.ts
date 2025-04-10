@@ -6,6 +6,7 @@ import path from "path"
 import { connectDB } from "./connect";
 import { monitorChanges } from "./utility/databaseChangeStream";
 import { proccessMissedFine } from "./utility/missingFine";
+import { checkSubscription } from "./utility/subscriptionCheck";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -68,4 +69,5 @@ app.all("*", (req, _) => {
 app.listen(PORT, async () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     await proccessMissedFine();
+    await checkSubscription();
 });

@@ -1,7 +1,7 @@
-import { ObjectId, Types } from "mongoose";
+import { FilterQuery, ObjectId, Types } from "mongoose";
 import { razorpay } from "../config/razorpay.config";
 import { subscriptionPlanModel } from "../models/subscriptionPlan";
-import { ISubscriptionPlan } from "../types/model.types";
+import { Isubscription, ISubscriptionPlan } from "../types/model.types";
 import { userModel } from "../models/user";
 import { orderModel } from "../models/order";
 import { subscriptionModel } from "../models/subscription";
@@ -234,6 +234,7 @@ export const cancelSubscription=async(subscriptionId:string)=>{
     }
 
     //Cancel on Razorpay
+    // @ts-ignore
     await razorpay.subscriptions.cancel(subscription.razorpaySubscriptionId,{cancel_at_cycle_end:true});
 
     //Update subscription
@@ -323,4 +324,9 @@ export const handlesubscriptionWebhook=async(event:any)=>{
 export const getSubscriptionPlanById=async(sId:ISubscriptionPlan["_id"])=>{
   const subscriptionPlan=await subscriptionPlanModel.findById(sId);
   return subscriptionPlan;
+}
+
+export const updateSubscription=async (query:FilterQuery<Isubscription>,update:Partial<Isubscription>)=>{
+  const subscription=await subscriptionModel.findOneAndUpdate(query,update);
+  return subscription;
 }
