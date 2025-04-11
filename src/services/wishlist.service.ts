@@ -1,4 +1,4 @@
-import { FilterQuery } from "mongoose";
+import { FilterQuery, ObjectId } from "mongoose";
 import { Iwishlist } from "../types/model.types";
 import { wishlistModel } from "../models/wishlist";
 import { book } from "../routers/user/book.route";
@@ -8,7 +8,7 @@ export const createwishlist=async(input:Iwishlist)=>{
     return wishlist;
 }
 
-export const findWishlistByuserId=async(userId:string)=>{
+export const findWishlistByuserId=async(userId:ObjectId)=>{
     const wishlists=await wishlistModel.find({user:userId})
     .populate({
         path:'book',

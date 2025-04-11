@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
 import { cancelSubscription, createSubscriptionPlan, getAllSubscriptionPlans, getUserActiveSubscription, handlesubscriptionWebhook, initiateSubscription, verifySubscriptionPayment } from "../../services/subscription.service";
-import { ObjectId, Types } from "mongoose";
+import { ObjectId, Schema, Types } from "mongoose";
 import { subscriptionModel } from "../../models/subscription";
 import { updateUser } from "../../services/user.service";
 
@@ -91,7 +91,7 @@ export const cancelSubscriptionController=async(req:Request,res:Response)=>{
 export const getUserSubscriptionCpntroller=async(req:Request, res:Response)=>{
     try{
         const {userId}=req.params;
-        const subscription=await getUserActiveSubscription(userId)
+        const subscription=await getUserActiveSubscription(new Schema.Types.ObjectId(userId))
         
         res.status(200).json({success:true,data:subscription})
     }catch(err){

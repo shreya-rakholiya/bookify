@@ -11,6 +11,7 @@ import { fineModel } from "../../models/fine";
 import { updateBorrow } from "../../services/borrow.service";
 import { borrowModel } from "../../models/borrow";
 import { findPurchase } from "../../services/purchase.service";
+import { Schema } from "mongoose";
 
 export const getUserProfileController = async (req: Request, res: Response):Promise<any>=> {
   try {
@@ -94,7 +95,7 @@ export const getBorrowedBooksController = async (
             (1000 * 60 * 60 * 24)
         );
         const fineAmount = overdueDays * 20;
-        let fine = await findFine(borrow._id);
+        let fine = await findFine(new Schema.Types.ObjectId(borrow._id));
         if (!fine) {
           let fine = await createFine({
             borrowId: borrow._id,

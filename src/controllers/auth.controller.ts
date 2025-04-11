@@ -161,9 +161,9 @@ export const loginController = async (req: Request, res: Response) => {
 export const forgetPassword = async (req: Request, res: Response) => {
   try {
     // const authUSer = req.authUser;
-    const {email} = req.body;
-    const {formPath} = req.body;
-    const userData = await findUser( {email} );
+    const { email } = req.body;
+    const { formPath } = req.body;
+    const userData = await findUser({ email });
     if (!userData) {
       return res.status(400).json({
         success: false,
@@ -172,7 +172,7 @@ export const forgetPassword = async (req: Request, res: Response) => {
     }
     const randomString = randomstring.generate();
     console.log(randomString);
-
+    // @ts-ignore
     await deletePreviousPasswordReset(userData._id);
     const passwordReset = await createPasswordReset({
       user: userData._id,
@@ -199,16 +199,17 @@ export const forgetPassword = async (req: Request, res: Response) => {
 
 export const resetPasswordController = async (req: Request, res: Response) => {
   try {
-    const token=req.query.token;
-    const passwordreset=await findPasswordResetByToken(token)
-    if(!passwordreset){
+    const token = req.query.token;
+    // @ts-ignore
+    const passwordreset = await findPasswordResetByToken(token);
+    if (!passwordreset) {
       return res.status(400).json({
         success: false,
         message: "ResetToken not valid or expired",
       });
     }
     // const authUser = req.authUser;
-    const id=passwordreset.user;
+    const id = passwordreset.user;
     const user = await findUser({ _id: id });
     if (!user) {
       return res.status(404).json({
@@ -226,7 +227,7 @@ export const resetPasswordController = async (req: Request, res: Response) => {
       { _id: user._id },
       { password: encryptedPassword }
     );
-
+    // @ts-ignore
     const passwordReset = await deletePreviousPasswordReset(user._id);
 
     return res.status(200).json({

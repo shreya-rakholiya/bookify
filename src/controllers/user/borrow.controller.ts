@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { Request } from "../../types/request";
 import { initiateBorrow, returnBook, updateBorrow } from "../../services/borrow.service";
-import { ObjectId, Types } from "mongoose";
+import { ObjectId, Schema, SchemaType, Types } from "mongoose";
 import { borrowModel } from "../../models/borrow";
 import { createFine, findFine } from "../../services/fine.service";
 import { fineModel } from "../../models/fine";
@@ -62,7 +62,7 @@ export const getBorrowHistoryController = async (
             (1000 * 60 * 60 * 24)
         );
         const fineAmount = overdueDays * 20;
-        let fine = await findFine(borrow._id);
+        let fine = await findFine(new Schema.Types.ObjectId(borrow._id));
         if (!fine) {
           let fine = await createFine({
             borrowId: borrow._id,
