@@ -4,6 +4,6 @@ import { getAllBookCategory } from '../../controllers/user/bookCategory.controll
 
 const categoryRoute=express.Router();
 
-categoryRoute.get('/get',validateAuthIdToken,getAllBookCategory)
+categoryRoute.get('/get',getAllBookCategory)
 
 export {categoryRoute}
